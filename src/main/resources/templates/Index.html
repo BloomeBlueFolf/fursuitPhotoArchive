@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Photo Upload</title>
@@ -16,22 +16,22 @@
                         <a class="nav-link" href="#"><p class="text-light bg-primary m-2 p-2">Upload new photo</p></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><p class="text-light bg-primary m-2 p-2">Create new event</p></a>
+                        <a class="nav-link" href="/event/add"><p class="text-light bg-primary m-2 p-2">Create new event</p></a>
                     </li>
                 </ul>
             </div>
         </nav>
-        </br>
+        <br/>
         <div class="container">
             <div class="row">
                 <h1>List of events</h1>
             </div>
-            <br>
+            <br/>
             <table class="table table-striped">
                 <thead class="table-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Lable</th>
+                    <th scope="col">Label</th>
                     <th scope="col">Number of photos</th>
                     <th scope="col">Upload</th>
                     <th scope="col">Delete</th>

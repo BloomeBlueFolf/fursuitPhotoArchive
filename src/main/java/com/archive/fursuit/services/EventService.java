@@ -23,8 +23,7 @@ public class EventService {
         return eventrepository.findAll();
     }
 
-    public Boolean createEvent(String label) {
-        Event event = new Event(label);
+    public Boolean saveEvent(Event event) {
         eventrepository.save(event);
         return true;
     }
