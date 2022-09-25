@@ -13,9 +13,6 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><p class="text-light bg-primary m-2 p-2">Upload new photo</p></a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/event/add"><p class="text-light bg-primary m-2 p-2">Create new event</p></a>
                     </li>
                 </ul>
@@ -30,18 +27,19 @@
             <table class="table table-striped">
                 <thead class="table-dark">
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Label</th>
                     <th scope="col">Number of photos</th>
-                    <th scope="col">Upload</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each = "event : ${events}">
-                    <th scope="row" th:text = "${event.id}"></th>
-                    <td th:text = "${event.label}"></td>
+                    <th scope="row" th:text = "${event.label}"></th>
                     <td th:text = "${event.photos.size}"></td>
+                    <td>
+                        <a th:href="@{/photo/upload/{id} (id=${event.id})}" class="btn btn-primary">Upload photo</a>
+                        <a th:href="@{/event/delete/{id} (id=${event.id})}" class="btn btn-danger">Delete event</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

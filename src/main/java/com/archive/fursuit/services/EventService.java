@@ -23,22 +23,22 @@ public class EventService {
         return eventrepository.findAll();
     }
 
-    public Boolean saveEvent(Event event) {
+    public void saveEvent(Event event) {
         eventrepository.save(event);
-        return true;
     }
 
-    public Boolean deleteEvent(int id, Event event) {
+    public void deleteEvent(int id) {
         Event deletedEvent = eventrepository.findById(id).get();
 
-        for (Photo photo : event.getPhotos()){
+        for (Photo photo : deletedEvent.getPhotos()){
             photo.setEvent(null);
             photoRepository.save(photo);
         }
-        return true;
+
+        eventrepository.delete(deletedEvent);
     }
 
-    public List<Event> findAllEvents(){
-        return eventrepository.findAll();
+    public Event getEventById(int id){
+        return eventrepository.findById(id).get();
     }
 }

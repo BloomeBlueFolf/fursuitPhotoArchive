@@ -18,30 +18,26 @@ public class PhotoService {
         return photoRepository.findAllByOrderByDateAsc();
     }
 
-    public Boolean deletePhoto(int id) {
+    public void deletePhoto(int id) {
         Photo photo = photoRepository.findById(id).get();
         photoRepository.delete(photo);
-        return true;
     }
 
-    public Boolean addNewPhoto(Photo photo){
+    public void addNewPhoto(Photo photo){
         photoRepository.save(photo);
-        return true;
     }
 
-    public Boolean updatePhoto(int id, Photo photo) {
+    public void updatePhoto(int id, Photo photo) {
         Photo updatedPhoto = photoRepository.findById(id).get();
         updatedPhoto.setLabel(photo.getLabel());
         updatedPhoto.setPhotographer(photo.getPhotographer());
         updatedPhoto.setDate(photo.getDate());
         photoRepository.save(updatedPhoto);
-        return true;
     }
 
-    public Boolean movePhoto(int id, Photo photo) {
+    public void movePhoto(int id, Photo photo) {
         Photo updatedPhoto = photoRepository.findById(id).get();
         updatedPhoto.setEvent(photo.getEvent());
         photoRepository.save(updatedPhoto);
-        return true;
     }
 }

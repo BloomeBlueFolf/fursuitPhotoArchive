@@ -1,7 +1,6 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
-import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ public class EventController {
 
     @GetMapping("/")
     public String getEvents(Model model){
-        model.addAttribute("events", eventService.findAllEvents());
+        model.addAttribute("events", eventService.showEvents());
         return "index";
     }
 
@@ -33,7 +32,13 @@ public class EventController {
 
     @PostMapping("/events")
     public String saveEvent(@ModelAttribute ("event") Event event){
-    eventService.saveEvent(event);
-    return "redirect:/";
+        eventService.saveEvent(event);
+        return "redirect:/";
+    }
+
+    @GetMapping("/event/delete/{id}")
+    public String deleteEvent(@PathVariable int id){
+        eventService.deleteEvent(id);
+        return "redirect:/";
     }
 }
