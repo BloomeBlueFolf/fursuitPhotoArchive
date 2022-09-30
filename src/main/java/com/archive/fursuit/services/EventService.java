@@ -27,18 +27,23 @@ public class EventService {
         eventrepository.save(event);
     }
 
-    public void deleteEvent(int id) {
+    public void deleteEvent(long id) {
         Event deletedEvent = eventrepository.findById(id).get();
 
         for (Photo photo : deletedEvent.getPhotos()){
-            photo.setEvent(null);
+            photo.assignEvent(null);
             photoRepository.save(photo);
         }
 
         eventrepository.delete(deletedEvent);
     }
 
-    public Event getEventById(int id){
+    public Event getEventById(long id){
         return eventrepository.findById(id).get();
+    }
+
+    public void addPhoto(Photo photo, Event event){
+        event.addPhoto(photo);
+        //eventrepository.save(event);
     }
 }

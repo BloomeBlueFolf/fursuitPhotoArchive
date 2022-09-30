@@ -6,24 +6,32 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <form th:action = "@{/photo/upload/{id} id=${event.id}}" th:object="${photo}" method = "POST">
-            <div class="form-group">
-                <label for="labelPhoto">Label</label>
-                <input type="text" class="form-control" id="labelPhoto" th:field = "*{label}" placeholder="Enter label">
-            </div>
-            <div class="form-group">
-                <label for="photographer">Label</label>
-                <input type="text" class="form-control" id="photographer" th:field = "*{photographer}" placeholder="Enter photographer">
-            </div>
-            <div class="form-group">
-                <label for="date">Label</label>
-                <input type="text" class="form-control" id="date" th:field = "*{date}" placeholder="Enter date">
-            </div>
-            <div class="form-group">
-                <label for="uploadFile">Upload photo</label>
-                <input type="file" class="form-control-file" id="uploadFile" th:field = "*{photos}">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <br/>
+        <div class="container">
+            <form th:action = "@{/photo/upload/{id} (id=${id})}" th:object="${photo}" method = "POST">
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="labelPhoto" class="col-sm-2 col-form-label col-form-label-lg">Label</label>
+                        <input type="text" class="form-control form-control-lg rounded-pill" id="labelPhoto" th:field = "*{label}" placeholder="Enter label">
+                    </div>
+                    <div class="col">
+                        <label for="photographer" class="col-sm-2 col-form-label col-form-label-lg">Photographer</label>
+                        <input type="text" class="form-control form-control-lg rounded-pill" id="photographer" th:field = "*{photographer}" placeholder="Enter photographer">
+                    </div>
+                <!---<div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="text" class="form-control" id="date" th:field = "*{date}" placeholder="Enter date">
+                </div>--->
+                <!---<div class="form-group">
+                    <label for="uploadFile">Upload photo</label>
+                    <input type="file" class="form-control-file" id="uploadFile" th:field = "*{photos}">
+                </div>--->
+                </div>
+                <br/>
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
+                </div>
+            </form>
+        </div>
     </body>
 </html>
