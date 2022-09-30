@@ -20,9 +20,9 @@ public class Photo {
 
     private String photographer;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "eventid")
-    @JsonIgnore
     private Event event;
 
     //@Column(nullable = false)

@@ -37,7 +37,10 @@ public class PhotoService {
         return photoRepository.findPhotoById(id);
     }
 
-    //@Transactional
+    public List<Photo> findAllPhotos(){
+        return photoRepository.findAll();
+    }
+
     public void assignEvent(Photo photo, long id){
         photo.assignEvent(eventRepository.findById(id).get());
         photoRepository.save(photo);

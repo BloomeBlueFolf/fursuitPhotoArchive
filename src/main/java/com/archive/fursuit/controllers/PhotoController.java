@@ -52,6 +52,4 @@ public class PhotoController {
         photoService.assignEvent(photo, id);
         return "redirect:/";
     }
-
-
 }
