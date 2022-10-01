@@ -1,8 +1,5 @@
 package com.archive.fursuit;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +15,7 @@ public class Event {
 
     private String label;
 
-    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "event", orphanRemoval = true)
     private List<Photo> photos = new LinkedList<>();
 
     public Event(String label) {
@@ -64,7 +61,11 @@ public class Event {
         return Objects.hash(id, label, photos);
     }
 
-    public void addPhoto(Photo photo){
+    public void assignPhoto(Photo photo){
         photos.add(photo);
+    }
+
+    public void deassignPhoto(Photo photo){
+        photos.remove(photo);
     }
 }

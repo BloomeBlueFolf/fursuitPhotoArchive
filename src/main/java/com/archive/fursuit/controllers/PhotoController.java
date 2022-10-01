@@ -49,7 +49,8 @@ public class PhotoController {
 
     @PostMapping("/photo/upload/{id}")
         public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @PathVariable long id){
-        photoService.assignEvent(photo, id);
+        //photoService.assignEvent(photo, id);
+        eventService.assignPhoto(photo, eventService.getEventById(id));
         return "redirect:/";
     }
 }

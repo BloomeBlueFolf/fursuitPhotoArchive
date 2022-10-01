@@ -21,7 +21,7 @@ public class Photo {
     private String photographer;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventid")
     private Event event;
 
@@ -95,6 +95,9 @@ public class Photo {
 
     public void assignEvent(Event event){
         this.event = event;
-        event.getPhotos().add(this);
+    }
+
+    public void deassignEvent(Event event){
+        this.event = null;
     }
 }

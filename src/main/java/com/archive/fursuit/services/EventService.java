@@ -13,37 +13,39 @@ import java.util.List;
 public class EventService {
 
     @Autowired
-    private EventRepository eventrepository;
+    private EventRepository eventRepository;
 
     @Autowired
     private PhotoRepository photoRepository;
 
 
     public List<Event> showEvents() {
-        return eventrepository.findAll();
+        return eventRepository.findAll();
     }
 
     public void saveEvent(Event event) {
-        eventrepository.save(event);
+        eventRepository.save(event);
     }
 
     public void deleteEvent(long id) {
-        Event deletedEvent = eventrepository.findById(id).get();
+        Event deletedEvent = eventRepository.findById(id).get();
 
-        for (Photo photo : deletedEvent.getPhotos()){
-            photo.assignEvent(null);
-            photoRepository.save(photo);
-        }
 
-        eventrepository.delete(deletedEvent);
+//        for (Photo photo : deletedEvent.getPhotos()){
+//            photo.assignEvent(null);
+//            photoRepository.save(photo);
+//        }
+
+        eventRepository.delete(deletedEvent);
     }
 
     public Event getEventById(long id){
-        return eventrepository.findById(id).get();
+        return eventRepository.findById(id).get();
     }
 
-    public void addPhoto(Photo photo, Event event){
-        event.addPhoto(photo);
-        //eventrepository.save(event);
+    public void assignPhoto(Photo photo, Event event){
+        event.assignPhoto(photo);
+        eventRepository.save(event);
+        photoRepository.save(photo);
     }
 }

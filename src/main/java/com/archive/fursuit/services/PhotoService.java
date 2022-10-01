@@ -1,6 +1,5 @@
 package com.archive.fursuit.services;
 
-import com.archive.fursuit.Event;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.repositories.PhotoRepository;
@@ -25,7 +24,7 @@ public class PhotoService {
     }
 
     public void deletePhoto(long id) {
-        Photo photo = photoRepository.findById(id).get();
+        Photo photo = photoRepository.findById(id);
         photoRepository.delete(photo);
     }
 
@@ -44,11 +43,10 @@ public class PhotoService {
     public void assignEvent(Photo photo, long id){
         photo.assignEvent(eventRepository.findById(id).get());
         photoRepository.save(photo);
-        //eventRepository.save(event);
     }
 
     public void updatePhoto(long id, Photo photo) {
-        Photo updatedPhoto = photoRepository.findById(id).get();
+        Photo updatedPhoto = photoRepository.findById(id);
         updatedPhoto.setLabel(photo.getLabel());
         updatedPhoto.setPhotographer(photo.getPhotographer());
         updatedPhoto.setDate(photo.getDate());
@@ -56,7 +54,7 @@ public class PhotoService {
     }
 
     public void movePhoto(long id, Photo photo) {
-        Photo updatedPhoto = photoRepository.findById(id).get();
+        Photo updatedPhoto = photoRepository.findById(id);
         updatedPhoto.setEvent(photo.getEvent());
         photoRepository.save(updatedPhoto);
     }

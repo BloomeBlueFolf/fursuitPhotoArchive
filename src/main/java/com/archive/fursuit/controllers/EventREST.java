@@ -1,7 +1,6 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
-import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.EventService;
 import com.archive.fursuit.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,6 @@ public class EventREST {
     @GetMapping("events/find")
     public List<Event> findEvents(){
         return eventService.showEvents();
-    }
-
-    @PostMapping("events/delete")
-    public void deleteEvent(@RequestBody long id){
-        eventService.deleteEvent(id);
-    }
-
-    @GetMapping("event/assign/{event_id}/{photo_id}")
-    public Event assignPhoto(@PathVariable ("event_id") long event_id, @PathVariable ("photo_id") long photo_id){
-        Event event = eventService.getEventById(event_id);
-        Photo photo = photoService.getPhotoById(photo_id);
-        photoService.assignEvent(photo, event_id);
-        return event;
     }
 
     @PutMapping("event/update/{id}/{label}")

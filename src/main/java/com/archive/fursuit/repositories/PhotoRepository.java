@@ -12,4 +12,6 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     public List<Photo> findAllByOrderByDateAsc();
 
     public Photo findPhotoById(long id);
+
+    public Photo findById(long id);
 }
