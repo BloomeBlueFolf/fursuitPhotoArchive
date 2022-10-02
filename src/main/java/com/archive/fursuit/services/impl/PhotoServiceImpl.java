@@ -1,16 +1,16 @@
-package com.archive.fursuit.services;
+package com.archive.fursuit.services.impl;
 
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.repositories.PhotoRepository;
+import com.archive.fursuit.services.interfaces.PhotoServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class PhotoService {
+public class PhotoServiceImpl implements PhotoServiceInterface {
 
     @Autowired
     private PhotoRepository photoRepository;

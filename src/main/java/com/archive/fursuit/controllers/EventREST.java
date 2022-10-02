@@ -1,8 +1,8 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
-import com.archive.fursuit.services.EventService;
-import com.archive.fursuit.services.PhotoService;
+import com.archive.fursuit.services.impl.EventServiceImpl;
+import com.archive.fursuit.services.impl.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,27 +12,27 @@ import java.util.List;
 public class EventREST {
 
     @Autowired
-    private EventService eventService;
+    private EventServiceImpl eventServiceImpl;
 
     @Autowired
-    private PhotoService photoService;
+    private PhotoServiceImpl photoServiceImpl;
 
     @PostMapping("event/add")
     public Event addEvent(@RequestBody Event event){
-        eventService.saveEvent(event);
+        eventServiceImpl.saveEvent(event);
         return event;
     }
 
     @GetMapping("events/find")
     public List<Event> findEvents(){
-        return eventService.showEvents();
+        return eventServiceImpl.showEvents();
     }
 
     @PutMapping("event/update/{id}/{label}")
     public Event updateEvent(@PathVariable ("id") long id, @PathVariable ("label") String label){
-        Event updatedEvent = eventService.getEventById(id);
+        Event updatedEvent = eventServiceImpl.getEventById(id);
         updatedEvent.setLabel(label);
-        eventService.saveEvent(updatedEvent);
+        eventServiceImpl.saveEvent(updatedEvent);
         return  updatedEvent;
     }
 }

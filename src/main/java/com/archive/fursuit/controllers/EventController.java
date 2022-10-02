@@ -1,7 +1,7 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
-import com.archive.fursuit.services.EventService;
+import com.archive.fursuit.services.impl.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class EventController {
 
     @Autowired
-    private EventService eventService;
+    private EventServiceImpl eventServiceImpl;
 
     @GetMapping("/")
     public String getEvents(Model model){
-        model.addAttribute("events", eventService.showEvents());
+        model.addAttribute("events", eventServiceImpl.showEvents());
         return "index";
     }
 
@@ -29,19 +29,19 @@ public class EventController {
 
     @PostMapping("/events")
     public String saveEvent(@ModelAttribute ("event") Event event){
-        eventService.saveEvent(event);
+        eventServiceImpl.saveEvent(event);
         return "redirect:/";
     }
 
     @GetMapping("/event/delete")
     public String deleteEvent(@RequestParam long id){
-        eventService.deleteEvent(id);
+        eventServiceImpl.deleteEvent(id);
         return "redirect:/";
     }
 
     @GetMapping("/event/rename")
     public String renameEvent(@RequestParam long id, Model model){
-        Event event = eventService.getEventById(id);
+        Event event = eventServiceImpl.getEventById(id);
         model.addAttribute(event);
         model.addAttribute(id);
         return "renameEvent";
@@ -49,7 +49,7 @@ public class EventController {
 
     @PostMapping("/event/rename")
     public String renameEvent(@ModelAttribute Event event, @RequestParam long id){
-          eventService.renameEvent(id, event);
+          eventServiceImpl.renameEvent(id, event);
         return "redirect:/";
     }
 }

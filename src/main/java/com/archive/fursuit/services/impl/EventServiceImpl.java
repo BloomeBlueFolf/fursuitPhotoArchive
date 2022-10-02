@@ -1,16 +1,17 @@
-package com.archive.fursuit.services;
+package com.archive.fursuit.services.impl;
 
 import com.archive.fursuit.Event;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.repositories.PhotoRepository;
+import com.archive.fursuit.services.interfaces.EventServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EventService {
+public class EventServiceImpl implements EventServiceInterface {
 
     @Autowired
     private EventRepository eventRepository;

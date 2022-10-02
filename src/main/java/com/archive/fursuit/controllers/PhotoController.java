@@ -1,9 +1,8 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Photo;
-import com.archive.fursuit.repositories.EventRepository;
-import com.archive.fursuit.services.EventService;
-import com.archive.fursuit.services.PhotoService;
+import com.archive.fursuit.services.impl.EventServiceImpl;
+import com.archive.fursuit.services.impl.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 public class PhotoController {
 
     @Autowired
-    private PhotoService photoService;
+    private PhotoServiceImpl photoServiceImpl;
 
     @Autowired
-    private EventService eventService;
+    private EventServiceImpl eventServiceImpl;
 
     @PostMapping("photos")
     public String savePhoto(@ModelAttribute ("photo") Photo photo){
-        photoService.savePhoto(photo);
+        photoServiceImpl.savePhoto(photo);
         return "redirect:/";
     }
 
     @GetMapping("photo/assign")
     public String findPhotos(Model model){
-        model.addAttribute("photos", photoService.findAllPhotosWithoutEvent());
+        model.addAttribute("photos", photoServiceImpl.findAllPhotosWithoutEvent());
         return "unassignedPhotos";
     }
 
@@ -43,7 +42,7 @@ public class PhotoController {
         Photo newPhoto = new Photo();
         newPhoto.setLabel(photo.getLabel());
         newPhoto.setPhotographer(photo.getPhotographer());
-        photoService.assignEvent(newPhoto, id);
+        photoServiceImpl.assignEvent(newPhoto, id);
         return "redirect:/";
     }
 }
