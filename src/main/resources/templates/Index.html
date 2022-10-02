@@ -5,33 +5,33 @@
         <title>Photo Upload</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-        <body>
-            <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
-            <div class="container">
-                <div class="row">
-                    <h1>Events</h1>
-                </div>
-                <br/>
-                <table class="table table-striped">
-                    <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Label</th>
-                        <th scope="col">Number of photos</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each = "event : ${events}">
-                        <th scope="row" th:text = "${event.label}"></th>
-                        <td th:text = "${event.photos.size}"></td>
-                        <td>
-                            <a th:href="@{/photo/upload(id=${event.id})}" class="btn btn-primary">Upload photo</a>
-                            <a th:href="@{/event/rename(id=${event.id})}" class="btn btn-primary ms-2">Rename event</a>
-                            <a th:href="@{/event/delete(id=${event.id})}" class="btn btn-danger ms-5">Delete event</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+    <body>
+        <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
+        <div class="container">
+            <div class="row">
+                <h1>Events</h1>
             </div>
-        </body>
+            <br/>
+            <table class="table table-striped w-75 p-3">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">Label</th>
+                    <th scope="col">Number of photos</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each = "event : ${events}">
+                    <th scope="row" th:text = "${event.label}"></th>
+                    <td th:text = "${event.photos.size}"></td>
+                    <td>
+                        <a th:href="@{/photo/upload(id=${event.id})}" class="btn btn-primary">Upload photo</a>
+                        <a th:href="@{/event/rename(id=${event.id})}" class="btn btn-primary ms-2">Rename event</a>
+                        <a th:href="@{/event/delete/warning(id=${event.id})}" class="btn btn-danger ms-5">Delete event</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>

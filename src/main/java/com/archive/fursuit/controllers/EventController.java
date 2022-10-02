@@ -33,6 +33,12 @@ public class EventController {
         return "redirect:/";
     }
 
+    @GetMapping("/event/delete/warning")
+    public String deleteWarning(Model model, @RequestParam long id){
+        model.addAttribute("id", id);
+        return "deleteWarning";
+    }
+
     @GetMapping("/event/delete")
     public String deleteEvent(@RequestParam long id){
         eventServiceImpl.deleteEvent(id);
@@ -42,8 +48,8 @@ public class EventController {
     @GetMapping("/event/rename")
     public String renameEvent(@RequestParam long id, Model model){
         Event event = eventServiceImpl.getEventById(id);
-        model.addAttribute(event);
-        model.addAttribute(id);
+        model.addAttribute("event", event);
+        model.addAttribute("id", id);
         return "renameEvent";
     }
 
