@@ -23,7 +23,7 @@ public class PhotoREST {
         return photoService.findAllPhotos();
     }
 
-    @PostMapping("photo/upload")
+    @PostMapping("photos/upload")
     public Photo uploadPhoto(@RequestBody Photo photo){
         photoService.savePhoto(photo);
         return photo;
