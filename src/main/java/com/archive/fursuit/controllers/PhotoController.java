@@ -1,6 +1,7 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Photo;
+import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.services.EventService;
 import com.archive.fursuit.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;

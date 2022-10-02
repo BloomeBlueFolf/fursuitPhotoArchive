@@ -8,12 +8,14 @@
 <body>
 <br/>
 <div class="container">
-    <form th:action = "@{/event/rename/{id} (id = ${id})}" th:object="${event}" method = "POST">
+    <form th:action = "@{/event/rename}" th:object="${event}" method = "POST">
         <div class="form-group row">
             <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">New Label</label>
             <div class="col-sm">
                 <input type="text" class="form-control form-control-lg rounded-pill" id="colFormLabelLg" th:field = "*{label}" placeholder="Enter new label">
             </div>
+            <div class="col-sm">
+                <input type="hidden" id="colFormIdLg" th:field = "*{id}">
             <div class="col-sm">
                 <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
             </div>

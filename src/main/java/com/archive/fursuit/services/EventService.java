@@ -48,4 +48,10 @@ public class EventService {
         eventRepository.save(event);
         photoRepository.save(photo);
     }
+
+    public void renameEvent(long id, Event newEventName){
+        Event renamedEvent = eventRepository.findById(id);
+        renamedEvent.setLabel(newEventName.getLabel());
+        eventRepository.save(renamedEvent);
+    }
 }
