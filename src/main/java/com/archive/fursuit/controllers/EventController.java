@@ -38,4 +38,20 @@ public class EventController {
         eventService.deleteEvent(id);
         return "redirect:/";
     }
+
+    @GetMapping("/event/rename/{id}")
+    public String renameEvent(@PathVariable ("id") long id, Model model){
+        Event event = new Event();
+        model.addAttribute(event);
+        model.addAttribute(id);
+        return "renameEvent";
+    }
+
+    @PostMapping("/event/rename/{id}")
+    public String renameEvent(@ModelAttribute Event event, @PathVariable ("id") long id){
+        Event renamedEvent = eventService.getEventById(id);
+        renamedEvent.setLabel(event.getLabel());
+        eventService.saveEvent(renamedEvent);
+        return "redirect:/";
+    }
 }

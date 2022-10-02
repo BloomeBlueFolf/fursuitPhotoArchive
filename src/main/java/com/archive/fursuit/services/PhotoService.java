@@ -41,7 +41,7 @@ public class PhotoService {
     }
 
     public void assignEvent(Photo photo, long id){
-        photo.assignEvent(eventRepository.findById(id).get());
+        photo.assignEvent(eventRepository.findById(id));
         photoRepository.save(photo);
     }
 

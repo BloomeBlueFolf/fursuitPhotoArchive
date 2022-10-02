@@ -28,7 +28,7 @@ public class EventService {
     }
 
     public void deleteEvent(long id) {
-        Event deletedEvent = eventRepository.findById(id).get();
+        Event deletedEvent = eventRepository.findById(id);
 
 
 //        for (Photo photo : deletedEvent.getPhotos()){
@@ -40,7 +40,7 @@ public class EventService {
     }
 
     public Event getEventById(long id){
-        return eventRepository.findById(id).get();
+        return eventRepository.findById(id);
     }
 
     public void assignPhoto(Photo photo, Event event){
