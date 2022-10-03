@@ -96,8 +96,4 @@ public class Photo {
     public void assignEvent(Event event){
         this.event = event;
     }
-
-    public void deassignEvent(Event event){
-        this.event = null;
-    }
 }

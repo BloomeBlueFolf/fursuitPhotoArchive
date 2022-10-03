@@ -33,6 +33,14 @@ public class EventController {
         return "redirect:/";
     }
 
+    @GetMapping("event/showPhotos")
+    public String showPhotos(Model model, @RequestParam long id){
+        Event event = eventServiceImpl.getEventById(id);
+        model.addAttribute("photos", event.getPhotos());
+        model.addAttribute("event", eventServiceImpl.getEventById(id));
+        return "PhotosOfEvent";
+    }
+
     @GetMapping("/event/delete/warning")
     public String deleteWarning(Model model, @RequestParam long id){
         model.addAttribute("id", id);

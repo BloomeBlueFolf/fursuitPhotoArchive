@@ -1,5 +1,6 @@
 package com.archive.fursuit.services.impl;
 
+import com.archive.fursuit.Event;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.repositories.PhotoRepository;
@@ -41,7 +42,8 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
     }
 
     public void assignEvent(Photo photo, long id){
-        photo.assignEvent(eventRepository.findById(id));
+        Event event = eventRepository.findById(id);
+        photo.assignEvent(event);
         photoRepository.save(photo);
     }
 

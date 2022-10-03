@@ -23,9 +23,11 @@
                 <tbody>
                 <tr th:each = "event : ${events}">
                     <th scope="row" th:text = "${event.label}"></th>
-                    <td th:text = "${event.photos.size}"></td>
+                    <td> <div th:if = "${event.photos.size} == '0'">---</div>
+                         <div th:unless = "${event.photos.size} == '0'" th:text = "${event.photos.size}"></div></td>
                     <td>
-                        <a th:href="@{/photo/upload(id=${event.id})}" class="btn btn-primary">Upload photo</a>
+                        <a th:href="@{/event/showPhotos(id=${event.id})}" class="btn btn-primary">Show photos</a>
+                        <a th:href="@{/photo/upload(id=${event.id})}" class="btn btn-primary ms-2">Upload photo</a>
                         <a th:href="@{/event/rename(id=${event.id})}" class="btn btn-primary ms-2">Rename event</a>
                         <a th:href="@{/event/delete/warning(id=${event.id})}" class="btn btn-danger ms-5">Delete event</a>
                     </td>
