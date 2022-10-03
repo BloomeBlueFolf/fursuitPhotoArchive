@@ -42,12 +42,18 @@ public class EventController {
         return "PhotosOfEvent";
     }
 
+    @GetMapping("event/deletePhoto/warning")
+    public String deletePhotoWarning(Model model, @RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
+        model.addAttribute("eventId", eventId);
+        model.addAttribute("photoId", photoId);
+        return "deleteWarningPhoto";
+    }
+
     @GetMapping("event/deletePhoto")
-    public String deletePhoto(@RequestParam long photoId, @RequestParam long event_id, RedirectAttributes redirectAttributes){
-        //Event event = eventServiceImpl.getEventById(event_id);
+    public String deletePhoto(@RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
         eventServiceImpl.deletePhoto(photoId);
-        redirectAttributes.addAttribute("id", event_id);
-        return "redirect:/event/showPhotos";
+        redirectAttributes.addAttribute("id", eventId);
+        return "redirect:showPhotos";
     }
 
     @GetMapping("/event/delete/warning")

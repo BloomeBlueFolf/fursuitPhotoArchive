@@ -64,8 +64,4 @@ public class Event {
     public void assignPhoto(Photo photo){
         photos.add(photo);
     }
-
-    public void deassignPhoto(Photo photo){
-        photos.remove(photo);
-    }
 }
