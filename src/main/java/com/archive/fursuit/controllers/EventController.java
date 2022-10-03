@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -39,6 +40,14 @@ public class EventController {
         model.addAttribute("photos", event.getPhotos());
         model.addAttribute("event", eventServiceImpl.getEventById(id));
         return "PhotosOfEvent";
+    }
+
+    @GetMapping("event/deletePhoto")
+    public String deletePhoto(@RequestParam long photoId, @RequestParam long event_id, RedirectAttributes redirectAttributes){
+        //Event event = eventServiceImpl.getEventById(event_id);
+        eventServiceImpl.deletePhoto(photoId);
+        redirectAttributes.addAttribute("id", event_id);
+        return "redirect:/event/showPhotos";
     }
 
     @GetMapping("/event/delete/warning")

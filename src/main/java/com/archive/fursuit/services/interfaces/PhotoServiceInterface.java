@@ -8,7 +8,7 @@ public interface PhotoServiceInterface {
 
     public List<Photo> findAllPhotosOrderedByDate();
 
-    public void deletePhoto(long id);
+    public void deletePhoto(long photoId);
 
     public void savePhoto(Photo photo);
 

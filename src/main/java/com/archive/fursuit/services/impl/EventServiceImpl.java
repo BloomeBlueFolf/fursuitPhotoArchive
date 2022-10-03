@@ -19,15 +19,17 @@ public class EventServiceImpl implements EventServiceInterface {
     @Autowired
     private PhotoRepository photoRepository;
 
-
+    @Override
     public List<Event> showEvents() {
         return eventRepository.findAll();
     }
 
+    @Override
     public void saveEvent(Event event) {
         eventRepository.save(event);
     }
 
+    @Override
     public void deleteEvent(long id) {
         Event deletedEvent = eventRepository.findById(id);
 
@@ -40,19 +42,27 @@ public class EventServiceImpl implements EventServiceInterface {
         eventRepository.delete(deletedEvent);
     }
 
+    @Override
     public Event getEventById(long id){
         return eventRepository.findById(id);
     }
 
+    @Override
     public void assignPhoto(Photo photo, Event event){
         event.assignPhoto(photo);
         eventRepository.save(event);
         photoRepository.save(photo);
     }
 
+    @Override
     public void renameEvent(long id, Event newEventName){
         Event renamedEvent = eventRepository.findById(id);
         renamedEvent.setLabel(newEventName.getLabel());
         eventRepository.save(renamedEvent);
+    }
+
+    @Override
+    public void deletePhoto(long photoId) {
+        photoRepository.delete(photoRepository.findById(photoId));
     }
 }

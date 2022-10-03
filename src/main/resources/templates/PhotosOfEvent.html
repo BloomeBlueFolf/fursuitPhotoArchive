@@ -28,12 +28,11 @@
           <td th:text = "${photo.photographer}"></td>
           <td> "Image Placeholder"</td>
           <td> "Date Placeholder"</td>
-          <!--
           <td>
-            <a th:href="@{/event/showPhotos(photo_id=${photo.id}, event_id=${event.id})}" class="btn btn-primary">Edit photo</a>
-            <a th:href="@{/photo/upload(id=${photo_id=$photo.id}, event_id=${event.id})}" class="btn btn-primary ms-2">Move photo</a>
-            <a th:href="@{/event/delete/warning(photo_id=${photo.id}, event_id=${event.id})}" class="btn btn-danger ms-5">Delete photo</a>
-          </td>-->
+            <!--<a th:href="@{/event/showPhotos(photo_id=${photo.id}, event_id=${event.id})}" class="btn btn-primary">Edit photo</a>
+            <a th:href="@{/photo/upload(id=${photo_id=$photo.id}, event_id=${event.id})}" class="btn btn-primary ms-2">Move photo</a>-->
+            <a th:href="@{/event/deletePhoto(photoId=${photo.id}, event_id=${event.id})}" class="btn btn-danger ms-5">Delete photo</a>
+          </td>
         </tr>
         </tbody>
       </table>
