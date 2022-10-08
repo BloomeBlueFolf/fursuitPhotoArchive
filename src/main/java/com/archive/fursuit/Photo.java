@@ -28,7 +28,7 @@ public class Photo {
     //@Column(nullable = false)
     private Blob image;
 
-    private Date date;
+    private String date;
 
     public Photo(){};
 
@@ -72,11 +72,11 @@ public class Photo {
         this.image = image;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
