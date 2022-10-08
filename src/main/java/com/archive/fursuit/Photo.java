@@ -26,7 +26,8 @@ public class Photo {
     private Event event;
 
     //@Column(nullable = false)
-    private Blob image;
+    @Lob
+    private byte[] image;
 
     private String date;
 
@@ -64,11 +65,11 @@ public class Photo {
         this.event = event;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

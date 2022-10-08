@@ -7,7 +7,9 @@ import com.archive.fursuit.repositories.PhotoRepository;
 import com.archive.fursuit.services.interfaces.PhotoServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -63,5 +65,9 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
 
     public List<Photo> findAllPhotosWithoutEvent(){
         return photoRepository.findAll();
+    }
+
+    public byte[] uploadImageData(Photo photo, MultipartFile file) throws IOException {
+        return file.getBytes();
     }
 }

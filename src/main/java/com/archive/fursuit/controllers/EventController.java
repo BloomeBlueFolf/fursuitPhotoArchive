@@ -1,7 +1,9 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
+import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
+import com.archive.fursuit.services.impl.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ public class EventController {
 
     @Autowired
     private EventServiceImpl eventServiceImpl;
+
+    @Autowired
+    private PhotoServiceImpl photoServiceImpl;
 
     @GetMapping("/")
     public String getEvents(Model model){
@@ -56,7 +61,7 @@ public class EventController {
     }
 
     @GetMapping("event/deletePhoto/warning")
-    public String deletePhotoWarning(Model model, @RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
+    public String deletePhotoWarning(Model model, @RequestParam long photoId, @RequestParam long eventId){
         model.addAttribute("eventId", eventId);
         model.addAttribute("photoId", photoId);
         return "deleteWarningPhoto";
@@ -65,6 +70,25 @@ public class EventController {
     @GetMapping("event/deletePhoto")
     public String deletePhoto(@RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
         eventServiceImpl.deletePhoto(photoId);
+        redirectAttributes.addAttribute("id", eventId);
+        return "redirect:showPhotos";
+    }
+
+    @GetMapping("/event/editPhoto")
+    public String editPhoto(Model model, @RequestParam long photoId, @RequestParam long eventId){
+        Photo editedPhoto = photoServiceImpl.getPhotoById(photoId);
+        model.addAttribute("photo", editedPhoto);
+        model.addAttribute("eventId", eventId);
+        return "editPhoto";
+    }
+
+    @PostMapping("/event/editPhoto")
+    public String editPhoto(RedirectAttributes redirectAttributes, @RequestParam long photoId, @RequestParam long eventId, @ModelAttribute Photo photo){
+        Photo editedPhoto = photoServiceImpl.getPhotoById(photoId);
+        editedPhoto.setLabel(photo.getLabel());
+        editedPhoto.setPhotographer(photo.getPhotographer());
+        editedPhoto.setDate(photo.getDate());
+        photoServiceImpl.savePhoto(editedPhoto);
         redirectAttributes.addAttribute("id", eventId);
         return "redirect:showPhotos";
     }

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,8 +54,9 @@ public class PhotoController {
     }
 
     @PostMapping("/photo/upload")
-    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id){
+    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id) throws IOException {
         Photo newPhoto = new Photo();
+        newPhoto.setImage(photo.getImage());
         newPhoto.setLabel(photo.getLabel());
         newPhoto.setPhotographer(photo.getPhotographer());
         newPhoto.setDate(photo.getDate());
