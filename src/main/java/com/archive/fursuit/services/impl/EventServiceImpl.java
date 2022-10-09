@@ -29,6 +29,10 @@ public class EventServiceImpl implements EventServiceInterface {
         eventRepository.save(event);
     }
 
+    public List<Event> getAllEvents(){
+        return eventRepository.findAll();
+    }
+
     @Override
     public void deleteEvent(long id) {
         Event deletedEvent = eventRepository.findById(id);

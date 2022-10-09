@@ -12,7 +12,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -21,10 +23,9 @@ public class EventController {
 
 
 //    @InitBinder
-//    private void dateBinder(WebDataBinder binder) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-//        binder.registerCustomEditor(Date.class, editor);
+//    private void initBinder(WebDataBinder binder) {
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        binder.addCustomFormatter(dtf, "date");
 //    }
 
     @Autowired

@@ -30,7 +30,7 @@
           <td th:text="${photo.date}"></td>
           <td>
             <a th:href="@{/event/editPhoto(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary">Edit photo</a>
-             <!--<a th:href="@{/photo/upload(id=${photo_id=$photo.id}, event_id=${event.id})}" class="btn btn-primary ms-2">Move photo</a>-->
+            <a th:href="@{/photo/move(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary ms-2">Move photo</a>
             <a th:href="@{/event/deletePhoto/warning(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-danger ms-5">Delete photo</a>
           </td>
         </tr>

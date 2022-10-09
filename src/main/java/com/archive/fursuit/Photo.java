@@ -1,10 +1,11 @@
 package com.archive.fursuit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Blob;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -25,7 +26,6 @@ public class Photo {
     @JoinColumn(name = "eventid")
     private Event event;
 
-    //@Column(nullable = false)
     @Lob
     private byte[] image;
 
@@ -91,7 +91,9 @@ public class Photo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label, photographer, event, image, date);
+        int result = Objects.hash(id, label, photographer, event, date);
+        result = 31 * result + Arrays.hashCode(image);
+        return result;
     }
 
     public void assignEvent(Event event){
