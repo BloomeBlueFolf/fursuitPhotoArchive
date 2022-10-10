@@ -25,7 +25,7 @@ public class EventREST {
 
     @GetMapping("events/find")
     public List<Event> findEvents(){
-        return eventServiceImpl.showEvents();
+        return eventServiceImpl.showEventsOrdered();
     }
 
     @PutMapping("event/update/{id}/{label}")

@@ -21,11 +21,6 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
     @Autowired
     private EventRepository eventRepository;
 
-
-    public List<Photo> findAllPhotosOrderedByDate() {
-        return photoRepository.findAllByOrderByDateAsc();
-    }
-
     public void deletePhoto(long id) {
         Photo photo = photoRepository.findById(id);
         photoRepository.delete(photo);
@@ -47,20 +42,6 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
         Event event = eventRepository.findById(id);
         photo.assignEvent(event);
         photoRepository.save(photo);
-    }
-
-    public void updatePhoto(long id, Photo photo) {
-        Photo updatedPhoto = photoRepository.findById(id);
-        updatedPhoto.setLabel(photo.getLabel());
-        updatedPhoto.setPhotographer(photo.getPhotographer());
-        updatedPhoto.setDate(photo.getDate());
-        photoRepository.save(updatedPhoto);
-    }
-
-    public void movePhoto(long id, Photo photo) {
-        Photo updatedPhoto = photoRepository.findById(id);
-        updatedPhoto.setEvent(photo.getEvent());
-        photoRepository.save(updatedPhoto);
     }
 
     public List<Photo> findAllPhotosWithoutEvent(){

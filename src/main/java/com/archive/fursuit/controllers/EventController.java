@@ -36,7 +36,7 @@ public class EventController {
 
     @GetMapping("/")
     public String getEvents(Model model){
-        model.addAttribute("events", eventServiceImpl.showEvents());
+        model.addAttribute("events", eventServiceImpl.showEventsOrdered());
         return "index";
     }
 

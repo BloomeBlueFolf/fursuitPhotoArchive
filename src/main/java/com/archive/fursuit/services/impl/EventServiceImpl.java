@@ -20,8 +20,8 @@ public class EventServiceImpl implements EventServiceInterface {
     private PhotoRepository photoRepository;
 
     @Override
-    public List<Event> showEvents() {
-        return eventRepository.findAll();
+    public List<Event> showEventsOrdered() {
+        return eventRepository.findAllByOrderByIdDesc();
     }
 
     @Override
@@ -36,26 +36,12 @@ public class EventServiceImpl implements EventServiceInterface {
     @Override
     public void deleteEvent(long id) {
         Event deletedEvent = eventRepository.findById(id);
-
-
-//        for (Photo photo : deletedEvent.getPhotos()){
-//            photo.assignEvent(null);
-//            photoRepository.save(photo);
-//        }
-
         eventRepository.delete(deletedEvent);
     }
 
     @Override
     public Event getEventById(long id){
         return eventRepository.findById(id);
-    }
-
-    @Override
-    public void assignPhoto(Photo photo, Event event){
-        event.assignPhoto(photo);
-        eventRepository.save(event);
-        photoRepository.save(photo);
     }
 
     @Override

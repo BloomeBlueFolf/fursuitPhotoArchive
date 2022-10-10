@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface EventServiceInterface {
 
-    public List<Event> showEvents();
-
-    public void assignPhoto(Photo photo, Event event);
+    public List<Event> showEventsOrdered();
 
     public void saveEvent(Event event);
 

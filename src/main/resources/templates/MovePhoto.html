@@ -9,19 +9,26 @@
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
         <h1><span th:text="*{photo.label}"></span></h1>
+        <br/>
         <form th:action = "@{/photo/move(eventId=${eventId}, photoId=${photoId})}" th:object="${photo}" method = "POST">
             <div>
-                <select th:field="*{event.id}" id="events">
+                <select th:field="*{event.id}" id="events" class="p-4 mb-2 bg-info text-black rounded-pill h5">
                     <option th:each="event : ${events}"
                             th:text="${event.label}"
                             th:value="${event.id}">
                 </select>
             </div>
+            <br/>
             <div class="col-sm">
                 <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
             </div>
         </form>
     </div>
-    <div th:insert="fragments/ReturnToIndex :: index-return"></div>
+    <br/>
+    <br/>
+    <br/>
+    <hr>
+    <a th:href="@{/event/showPhotos(id=${eventId})}"><img src="/images/Return.png" width="40px" height="40px" alt="return button" class="ms-5"></a>
+    <br/>
     </body>
 </html>

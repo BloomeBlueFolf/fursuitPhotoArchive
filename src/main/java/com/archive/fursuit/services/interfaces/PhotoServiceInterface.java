@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface PhotoServiceInterface {
 
-    public List<Photo> findAllPhotosOrderedByDate();
-
     public void deletePhoto(long photoId);
 
     public void savePhoto(Photo photo);
@@ -17,10 +15,6 @@ public interface PhotoServiceInterface {
     public List<Photo> findAllPhotos();
 
     public void assignEvent(Photo photo, long id);
-
-    public void updatePhoto(long id, Photo photo);
-
-    public void movePhoto(long id, Photo photo);
 
     public List<Photo> findAllPhotosWithoutEvent();
 }
