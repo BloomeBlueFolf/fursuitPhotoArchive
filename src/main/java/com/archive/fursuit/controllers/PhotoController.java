@@ -4,6 +4,7 @@ import com.archive.fursuit.Event;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
+import org.aspectj.lang.annotation.DeclareWarning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -78,13 +79,31 @@ public class PhotoController {
     }
 
     @PostMapping("/photo/upload")
-    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id){
+    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id, /*@RequestParam("file") MultipartFile file,*/ Model model) throws IOException {
         Photo newPhoto = new Photo();
-        newPhoto.setImage(photo.getImage());
         newPhoto.setLabel(photo.getLabel());
         newPhoto.setPhotographer(photo.getPhotographer());
         newPhoto.setDate(photo.getDate());
+//        try {
+//            newPhoto.setFileType(file.getContentType());
+//            newPhoto.setImage(file.getBytes());
+//        } catch(Exception e){
+//        }
         photoServiceImpl.assignEvent(newPhoto, id);
+        model.addAttribute("currentPhotoId", newPhoto.getId());
+        model.addAttribute("eventId", id);
+        return "fileUpload";
+    }
+
+    @PostMapping("/photo/uploadFile")
+    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long eventId, @RequestParam long currentPhotoId, @RequestParam(value="file") MultipartFile file) {
+        Photo currentPhoto = photoServiceImpl.getPhotoById(currentPhotoId);
+        try {
+            currentPhoto.setFileType(file.getContentType());
+            currentPhoto.setImage(file.getBytes());
+        } catch(Exception e){
+        }
+        photoServiceImpl.savePhoto(currentPhoto);
         return "redirect:/";
     }
 }

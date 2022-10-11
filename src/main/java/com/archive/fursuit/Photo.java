@@ -21,6 +21,9 @@ public class Photo {
 
     private String photographer;
 
+    @Column(name = "filetype")
+    private String fileType;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventid")
@@ -79,6 +82,14 @@ public class Photo {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     @Override
