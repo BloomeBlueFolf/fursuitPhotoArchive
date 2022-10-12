@@ -4,7 +4,6 @@ import com.archive.fursuit.Event;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
-import org.aspectj.lang.annotation.DeclareWarning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -81,18 +80,9 @@ public class PhotoController {
 
     @PostMapping("/photo/upload")
     public ModelAndView uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id,
-                                    @RequestParam(value="file") MultipartFile file,
+                                    @RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes){
-        Photo newPhoto = new Photo();
-        newPhoto.setLabel(photo.getLabel());
-        newPhoto.setPhotographer(photo.getPhotographer());
-        newPhoto.setDate(photo.getDate());
-        try {
-            newPhoto.setFileType(file.getContentType());
-            newPhoto.setImage(file.getBytes());
-        } catch(Exception e){
-        }
-        photoServiceImpl.assignEvent(newPhoto, id);
+        photoServiceImpl.createNewPhoto(photo, id, file);
         redirectAttributes.addAttribute("id", id);
         return new ModelAndView("redirect:/event/showPhotos");
     }
