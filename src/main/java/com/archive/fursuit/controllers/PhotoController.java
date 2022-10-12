@@ -62,7 +62,8 @@ public class PhotoController {
     }
 
     @PostMapping("/photo/move")
-    public ModelAndView movePhoto(@ModelAttribute ("photo") Photo photo, RedirectAttributes redirectAttributes, @RequestParam long eventId, @RequestParam long photoId){
+    public ModelAndView movePhoto(@ModelAttribute ("photo") Photo photo, RedirectAttributes redirectAttributes,
+                                  @RequestParam long eventId, @RequestParam long photoId){
         Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
         movedPhoto.setEvent(photo.getEvent());
         photoServiceImpl.savePhoto(movedPhoto);
@@ -79,31 +80,20 @@ public class PhotoController {
     }
 
     @PostMapping("/photo/upload")
-    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id, /*@RequestParam("file") MultipartFile file,*/ Model model) throws IOException {
+    public ModelAndView uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id,
+                                    @RequestParam(value="file") MultipartFile file,
+                                    RedirectAttributes redirectAttributes){
         Photo newPhoto = new Photo();
         newPhoto.setLabel(photo.getLabel());
         newPhoto.setPhotographer(photo.getPhotographer());
         newPhoto.setDate(photo.getDate());
-//        try {
-//            newPhoto.setFileType(file.getContentType());
-//            newPhoto.setImage(file.getBytes());
-//        } catch(Exception e){
-//        }
-        photoServiceImpl.assignEvent(newPhoto, id);
-        model.addAttribute("currentPhotoId", newPhoto.getId());
-        model.addAttribute("eventId", id);
-        return "fileUpload";
-    }
-
-    @PostMapping("/photo/uploadFile")
-    public String uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long eventId, @RequestParam long currentPhotoId, @RequestParam(value="file") MultipartFile file) {
-        Photo currentPhoto = photoServiceImpl.getPhotoById(currentPhotoId);
         try {
-            currentPhoto.setFileType(file.getContentType());
-            currentPhoto.setImage(file.getBytes());
+            newPhoto.setFileType(file.getContentType());
+            newPhoto.setImage(file.getBytes());
         } catch(Exception e){
         }
-        photoServiceImpl.savePhoto(currentPhoto);
-        return "redirect:/";
+        photoServiceImpl.assignEvent(newPhoto, id);
+        redirectAttributes.addAttribute("id", id);
+        return new ModelAndView("redirect:/event/showPhotos");
     }
 }

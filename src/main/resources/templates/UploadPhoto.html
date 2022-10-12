@@ -8,7 +8,7 @@
     <body>
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
         <div class="container">
-            <form th:action = "@{/photo/upload(id=${id})}" th:object="${photo}" method = "POST">
+            <form th:action = "@{/photo/upload(id=${id})}" th:object="${photo}" method = "POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col">
                         <label for="labelPhoto" class="col-sm-2 col-form-label col-form-label-lg">Label</label>
@@ -25,10 +25,10 @@
                     </div>
                     <br/>
                     <div class="form-group">
-<!--                        <br/>-->
-<!--                        <label for="uploadFile" class="col-sm-2 col-form-label col-form-label-lg">Upload file</label>-->
-<!--                        <br/>-->
-<!--                        <input type="file" class="form-control-file" id="uploadFile" th:field = "*{image}" enctype="multipart/form-data">-->
+                        <br/>
+                        <label for="file" class="col-sm-2 col-form-label col-form-label-lg">Upload file</label>
+                        <br/>
+                        <input type="file" class="form-control-file" id="file" name="file">
                     </div>
                 </div>
                 <div class="col-sm">
