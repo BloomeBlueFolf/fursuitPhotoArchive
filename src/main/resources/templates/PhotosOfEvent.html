@@ -25,8 +25,8 @@
         <tbody>
         <tr th:each = "photo : ${photos}">
           <th scope="row" th:text = "${photo.label}"></th>
+          <td> <img th:src="@{/photo/image(id=${photo.id})}" width="140px" height="140px" alt="fursuit photo" class="img-thumbnail"></td>
           <td th:text = "${photo.photographer}"></td>
-          <td> <img th:src="${photo.image}" width="140px" height="140px" alt="fursuit photo"></td>
           <td th:text="${photo.date}"></td>
           <td>
             <a th:href="@{/event/editPhoto(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary">Edit photo</a>
