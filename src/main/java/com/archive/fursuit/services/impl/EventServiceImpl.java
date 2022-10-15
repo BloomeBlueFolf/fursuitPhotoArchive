@@ -8,6 +8,7 @@ import com.archive.fursuit.services.interfaces.EventServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,5 +55,15 @@ public class EventServiceImpl implements EventServiceInterface {
     @Override
     public void deletePhoto(long photoId) {
         photoRepository.delete(photoRepository.findById(photoId));
+    }
+
+    @Override
+    public List<Photo> sortPhotosByIdDesc(Event event){
+        List<Photo> photoList = event.getPhotos();
+            List <Photo> invertedList = new ArrayList<>();
+            for (int i = photoList.size() - 1; i >= 0; i--) {
+                invertedList.add(photoList.get(i));
+        }
+        return invertedList;
     }
 }

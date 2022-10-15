@@ -18,4 +18,6 @@ public interface EventServiceInterface {
     public void renameEvent(long id, Event newEventName);
 
     public void deletePhoto(long photo_id);
+
+    public List<Photo> sortPhotosByIdDesc(Event event);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 
 
@@ -56,7 +57,7 @@ public class EventController {
     @GetMapping("event/showPhotos")
     public String showPhotos(Model model, @RequestParam long id){
         Event event = eventServiceImpl.getEventById(id);
-        model.addAttribute("photos", event.getPhotos());
+        model.addAttribute("photos", eventServiceImpl.sortPhotosByIdDesc(event));
         model.addAttribute("event", eventServiceImpl.getEventById(id));
         return "PhotosOfEvent";
     }
