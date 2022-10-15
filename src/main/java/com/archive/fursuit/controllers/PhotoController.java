@@ -6,6 +6,7 @@ import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -93,6 +94,17 @@ public class PhotoController {
     public ResponseEntity<?> getImage(@RequestParam long id){
         Photo photo = photoServiceImpl.getPhotoById(id);
         return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(photo.getFileType()))
+                .body(photo.getImage());
+    }
+
+    @GetMapping("/photo/download")
+    public ResponseEntity<?> downloadImage(@RequestParam long photoId){
+        HttpHeaders header = new HttpHeaders();
+        Photo photo = photoServiceImpl.getPhotoById(photoId);
+        header.add(HttpHeaders.CONTENT_DISPOSITION, photo.getLabel()+photo.getFileType());
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(header)
                 .contentType(MediaType.valueOf(photo.getFileType()))
                 .body(photo.getImage());
     }
