@@ -1,6 +1,7 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
+import com.archive.fursuit.ImageUtils;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
@@ -95,7 +96,7 @@ public class PhotoController {
         Photo photo = photoServiceImpl.getPhotoById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf(photo.getFileType()))
-                .body(photo.getImage());
+                .body(ImageUtils.decompressImage(photo.getImage()));
     }
 
     @GetMapping("/photo/download")
@@ -106,6 +107,6 @@ public class PhotoController {
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(header)
                 .contentType(MediaType.valueOf(photo.getFileType()))
-                .body(photo.getImage());
+                .body(ImageUtils.decompressImage(photo.getImage()));
     }
 }

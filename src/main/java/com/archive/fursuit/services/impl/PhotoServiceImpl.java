@@ -1,6 +1,7 @@
 package com.archive.fursuit.services.impl;
 
 import com.archive.fursuit.Event;
+import com.archive.fursuit.ImageUtils;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.repositories.EventRepository;
 import com.archive.fursuit.repositories.PhotoRepository;
@@ -61,7 +62,7 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
         newPhoto.setDate(formPhoto.getDate());
         try {
             newPhoto.setFileType(file.getContentType());
-            newPhoto.setImage(file.getBytes());
+            newPhoto.setImage(ImageUtils.compressImage(file.getBytes()));
         } catch(Exception e){ e.printStackTrace();
         }
         this.assignEvent(newPhoto, id);
