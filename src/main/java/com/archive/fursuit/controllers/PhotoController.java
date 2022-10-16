@@ -5,6 +5,7 @@ import com.archive.fursuit.ImageUtils;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
@@ -19,9 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Controller
 public class PhotoController {
