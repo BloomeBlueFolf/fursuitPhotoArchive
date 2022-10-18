@@ -51,7 +51,7 @@ public class EventController {
     @PostMapping("/events")
     public String saveEvent(@ModelAttribute ("event") Event event){
         eventServiceImpl.saveEvent(event);
-        return "redirect:/";
+        return "redirect:/?eventcreated";
     }
 
     @GetMapping("event/showPhotos")
@@ -73,7 +73,7 @@ public class EventController {
     public String deletePhoto(@RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
         eventServiceImpl.deletePhoto(photoId);
         redirectAttributes.addAttribute("id", eventId);
-        return "redirect:showPhotos";
+        return "redirect:showPhotos?photodeleted";
     }
 
     @GetMapping("/event/editPhoto")
@@ -92,7 +92,7 @@ public class EventController {
         editedPhoto.setDate(photo.getDate());
         photoServiceImpl.savePhoto(editedPhoto);
         redirectAttributes.addAttribute("id", eventId);
-        return "redirect:showPhotos";
+        return "redirect:showPhotos?photoedited";
     }
 
     @GetMapping("/event/delete/warning")
@@ -104,7 +104,7 @@ public class EventController {
     @GetMapping("/event/delete")
     public String deleteEvent(@RequestParam long id){
         eventServiceImpl.deleteEvent(id);
-        return "redirect:/";
+        return "redirect:/?eventdeleted";
     }
 
     @GetMapping("/event/rename")
@@ -118,6 +118,6 @@ public class EventController {
     @PostMapping("/event/rename")
     public String renameEvent(@ModelAttribute Event event, @RequestParam long id){
           eventServiceImpl.renameEvent(id, event);
-        return "redirect:/";
+        return "redirect:/?eventrenamed";
     }
 }

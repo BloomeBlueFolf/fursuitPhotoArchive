@@ -8,6 +8,18 @@
   <body>
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
+      <div th:if = "${param.photouploaded}">
+        <div class="alert alert-info">Photo succesfully uploaded!</div>
+      </div>
+      <div th:if = "${param.photodeleted}">
+        <div class="alert alert-danger">Photo deleted!</div>
+      </div>
+      <div th:if = "${param.photomoved}">
+        <div class="alert alert-info">Photo moved!</div>
+      </div>
+      <div th:if = "${param.photoedited}">
+        <div class="alert alert-info">Photo succesfully edited!</div>
+      </div>
       <div class="row">
         <div class=class="col-xs-6">
           <h1><span th:text="${event.label}"></span></h1>

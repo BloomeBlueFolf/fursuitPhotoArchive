@@ -76,7 +76,7 @@ public class PhotoController {
         movedPhoto.setEvent(photo.getEvent());
         photoServiceImpl.savePhoto(movedPhoto);
         redirectAttributes.addAttribute("id", eventId);
-        return new ModelAndView("redirect:/event/showPhotos");
+        return new ModelAndView("redirect:/event/showPhotos?photomoved");
     }
 
     @GetMapping("/photo/upload")
@@ -93,7 +93,7 @@ public class PhotoController {
                                     RedirectAttributes redirectAttributes){
         photoServiceImpl.createNewPhoto(photo, id, file);
         redirectAttributes.addAttribute("id", id);
-        return new ModelAndView("redirect:/event/showPhotos");
+        return new ModelAndView("redirect:/event/showPhotos?photouploaded");
     }
 
     @GetMapping("/photo/image")

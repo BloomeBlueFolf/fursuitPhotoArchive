@@ -8,6 +8,15 @@
     <body>
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
         <div class="container">
+            <div th:if = "${param.eventcreated}">
+                <div class="alert alert-info">Event succesfully created!</div>
+            </div>
+            <div th:if = "${param.eventdeleted}">
+                <div class="alert alert-danger">Event deleted!</div>
+            </div>
+            <div th:if = "${param.eventrenamed}">
+                <div class="alert alert-info">Event renamed!</div>
+            </div>
             <div class="row">
                 <h1>Events</h1>
             </div>
