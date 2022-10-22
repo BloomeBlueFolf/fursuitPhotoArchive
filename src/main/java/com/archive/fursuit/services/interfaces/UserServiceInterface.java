@@ -4,7 +4,7 @@ import com.archive.fursuit.User;
 import com.archive.fursuit.dto.UserRegistrationDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserServiceInterface extends UserDetailsService {
+public interface UserServiceInterface {
 
     User saveUser(UserRegistrationDto userRegistrationDto);
 }

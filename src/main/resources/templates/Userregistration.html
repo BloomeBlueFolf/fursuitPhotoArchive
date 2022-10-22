@@ -9,7 +9,7 @@
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
         <div th:if = "${param.success}">
-            <div class="alert alert-info">Account succesfully added!"</div>
+            <div class="alert alert-info">Account succesfully added!</div>
         </div>
         <h1><span>Create a new account</span></h1>
         <form th:action = "@{/user/registration}" th:object="${userRegistrationDto}" method = "POST">
