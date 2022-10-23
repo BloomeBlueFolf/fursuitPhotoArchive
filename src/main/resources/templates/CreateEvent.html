@@ -9,7 +9,7 @@
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
             <br/>
             <div class="container">
-                <form th:action = "@{/events}" th:object="${event}" method = "POST">
+                <form th:action = "@{/admin/events}" th:object="${event}" method = "POST">
                     <div class="form-group row">
                         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Label</label>
                         <div class="col-sm">

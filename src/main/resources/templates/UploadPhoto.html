@@ -8,7 +8,7 @@
     <body>
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
         <div class="container">
-            <form th:action = "@{/photo/upload(id=${id})}" th:object="${photo}" method = "POST" enctype="multipart/form-data">
+            <form th:action = "@{/admin/photo/upload(id=${id})}" th:object="${photo}" method = "POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col">
                         <label for="labelPhoto" class="col-sm-2 col-form-label col-form-label-lg">Label</label>

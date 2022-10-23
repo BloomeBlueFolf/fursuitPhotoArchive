@@ -10,7 +10,7 @@
     <div class="container">
         <h1><span th:text="*{photo.label}"></span></h1>
         <br/>
-        <form th:action = "@{/photo/move(eventId=${eventId}, photoId=${photoId})}" th:object="${photo}" method = "POST">
+        <form th:action = "@{/admin/photo/move(eventId=${eventId}, photoId=${photoId})}" th:object="${photo}" method = "POST">
             <div>
                 <select th:field="*{event.id}" id="events" class="p-4 mb-2 bg-info text-black rounded-pill h5">
                     <option th:each="event : ${events}"
@@ -28,7 +28,7 @@
     <br/>
     <br/>
     <hr>
-    <a th:href="@{/event/showPhotos(id=${eventId})}"><img src="/images/Return.png" width="40px" height="40px" alt="return button" class="ms-5"></a>
+    <a th:href="@{/user/event/showPhotos(id=${eventId})}"><img src="/images/Return.png" width="40px" height="40px" alt="return button" class="ms-5"></a>
     <br/>
     </body>
 </html>

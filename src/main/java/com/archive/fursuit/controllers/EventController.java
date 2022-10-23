@@ -35,26 +35,26 @@ public class EventController {
     @Autowired
     private PhotoServiceImpl photoServiceImpl;
 
-    @GetMapping("/")
+    @GetMapping("/user")
     public String getEvents(Model model){
         model.addAttribute("events", eventServiceImpl.showEventsOrdered());
         return "index";
     }
 
-    @GetMapping("/event/add")
+    @GetMapping("/admin/event/add")
     public String createEvent(Model model){
         Event event = new Event();
         model.addAttribute("event", event);
         return "createEvent";
     }
 
-    @PostMapping("/events")
+    @PostMapping("/admin/events")
     public String saveEvent(@ModelAttribute ("event") Event event){
         eventServiceImpl.saveEvent(event);
-        return "redirect:/?eventcreated";
+        return "redirect:/user?eventcreated";
     }
 
-    @GetMapping("event/showPhotos")
+    @GetMapping("/user/event/showPhotos")
     public String showPhotos(Model model, @RequestParam long id){
         Event event = eventServiceImpl.getEventById(id);
         model.addAttribute("photos", eventServiceImpl.sortPhotosByIdDesc(event));
@@ -62,21 +62,21 @@ public class EventController {
         return "PhotosOfEvent";
     }
 
-    @GetMapping("event/deletePhoto/warning")
+    @GetMapping("/admin/event/deletePhoto/warning")
     public String deletePhotoWarning(Model model, @RequestParam long photoId, @RequestParam long eventId){
         model.addAttribute("eventId", eventId);
         model.addAttribute("photoId", photoId);
         return "deleteWarningPhoto";
     }
 
-    @GetMapping("event/deletePhoto")
+    @GetMapping("/admin/event/deletePhoto")
     public String deletePhoto(@RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
         eventServiceImpl.deletePhoto(photoId);
         redirectAttributes.addAttribute("id", eventId);
-        return "redirect:showPhotos?photodeleted";
+        return "redirect:/user/event/showPhotos?photodeleted";
     }
 
-    @GetMapping("/event/editPhoto")
+    @GetMapping("/admin/event/editPhoto")
     public String editPhoto(Model model, @RequestParam long photoId, @RequestParam long eventId){
         Photo editedPhoto = photoServiceImpl.getPhotoById(photoId);
         model.addAttribute("photo", editedPhoto);
@@ -84,7 +84,7 @@ public class EventController {
         return "editPhoto";
     }
 
-    @PostMapping("/event/editPhoto")
+    @PostMapping("/admin/event/editPhoto")
     public String editPhoto(RedirectAttributes redirectAttributes, @RequestParam long photoId, @RequestParam long eventId, @ModelAttribute Photo photo){
         Photo editedPhoto = photoServiceImpl.getPhotoById(photoId);
         editedPhoto.setLabel(photo.getLabel());
@@ -92,22 +92,22 @@ public class EventController {
         editedPhoto.setDate(photo.getDate());
         photoServiceImpl.savePhoto(editedPhoto);
         redirectAttributes.addAttribute("id", eventId);
-        return "redirect:showPhotos?photoedited";
+        return "redirect:/user/event/showPhotos?photoedited";
     }
 
-    @GetMapping("/event/delete/warning")
+    @GetMapping("/admin/event/delete/warning")
     public String deleteWarning(Model model, @RequestParam long id){
         model.addAttribute("id", id);
         return "deleteWarning";
     }
 
-    @GetMapping("/event/delete")
+    @GetMapping("/admin/event/delete")
     public String deleteEvent(@RequestParam long id){
         eventServiceImpl.deleteEvent(id);
-        return "redirect:/?eventdeleted";
+        return "redirect:/user?eventdeleted";
     }
 
-    @GetMapping("/event/rename")
+    @GetMapping("/admin/event/rename")
     public String renameEvent(@RequestParam long id, Model model){
         Event event = eventServiceImpl.getEventById(id);
         model.addAttribute("event", event);
@@ -115,9 +115,9 @@ public class EventController {
         return "renameEvent";
     }
 
-    @PostMapping("/event/rename")
+    @PostMapping("/admin/event/rename")
     public String renameEvent(@ModelAttribute Event event, @RequestParam long id){
           eventServiceImpl.renameEvent(id, event);
-        return "redirect:/?eventrenamed";
+        return "redirect:/user?eventrenamed";
     }
 }

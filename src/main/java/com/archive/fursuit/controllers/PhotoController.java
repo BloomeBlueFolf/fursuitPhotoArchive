@@ -46,19 +46,13 @@ public class PhotoController {
     @Autowired
     private EventServiceImpl eventServiceImpl;
 
-    @PostMapping("photos")
-    public String savePhoto(@ModelAttribute ("photo") Photo photo){
-        photoServiceImpl.savePhoto(photo);
-        return "redirect:/";
-    }
+//    @PostMapping("/photos")
+//    public String savePhoto(@ModelAttribute ("photo") Photo photo){
+//        photoServiceImpl.savePhoto(photo);
+//        return "redirect:/user/";
+//    }
 
-    @GetMapping("photo/assign")
-    public String findPhotos(Model model){
-        model.addAttribute("photos", photoServiceImpl.findAllPhotosWithoutEvent());
-        return "unassignedPhotos";
-    }
-
-    @GetMapping("/photo/move")
+    @GetMapping("/admin/photo/move")
     public String movePhoto(Model model, @RequestParam long eventId, @RequestParam long photoId){
         Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
         List<Event> events = eventServiceImpl.getAllEvents();
@@ -69,17 +63,17 @@ public class PhotoController {
         return "MovePhoto";
     }
 
-    @PostMapping("/photo/move")
+    @PostMapping("/admin/photo/move")
     public ModelAndView movePhoto(@ModelAttribute ("photo") Photo photo, RedirectAttributes redirectAttributes,
                                   @RequestParam long eventId, @RequestParam long photoId){
         Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
         movedPhoto.setEvent(photo.getEvent());
         photoServiceImpl.savePhoto(movedPhoto);
         redirectAttributes.addAttribute("id", eventId);
-        return new ModelAndView("redirect:/event/showPhotos?photomoved");
+        return new ModelAndView("redirect:/user/event/showPhotos?photomoved");
     }
 
-    @GetMapping("/photo/upload")
+    @GetMapping("/admin/photo/upload")
     public String uploadPhoto(Model model, @RequestParam long id){
         Photo photo = new Photo();
         model.addAttribute("photo", photo);
@@ -87,16 +81,16 @@ public class PhotoController {
         return "uploadPhoto";
     }
 
-    @PostMapping("/photo/upload")
+    @PostMapping("/admin/photo/upload")
     public ModelAndView uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id,
                                     @RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes){
         photoServiceImpl.createNewPhoto(photo, id, file);
         redirectAttributes.addAttribute("id", id);
-        return new ModelAndView("redirect:/event/showPhotos?photouploaded");
+        return new ModelAndView("redirect:/user/event/showPhotos?photouploaded");
     }
 
-    @GetMapping("/photo/image")
+    @GetMapping("/user/photo/image")
     public ResponseEntity<?> getImage(@RequestParam long id){
         Photo photo = photoServiceImpl.getPhotoById(id);
         return ResponseEntity.status(HttpStatus.OK)
@@ -104,7 +98,7 @@ public class PhotoController {
                 .body(ImageUtils.decompressImage(photo.getImage()));
     }
 
-    @GetMapping("/photo/download")
+    @GetMapping("/user/photo/download")
     public ResponseEntity<?> downloadImage(@RequestParam long photoId){
         HttpHeaders header = new HttpHeaders();
         Photo photo = photoServiceImpl.getPhotoById(photoId);

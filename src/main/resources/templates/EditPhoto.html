@@ -8,7 +8,7 @@
     <body>
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
-        <form th:action = "@{/event/editPhoto(photoId=${photo.id}, eventId=${eventId})}" th:object="${photo}" method = "POST">
+        <form th:action = "@{/admin/event/editPhoto(photoId=${photo.id}, eventId=${eventId})}" th:object="${photo}" method = "POST">
             <div class="form-group row">
                 <div class="col">
                     <label for="labelPhoto" class="col-sm-2 col-form-label col-form-label-lg">Label</label>

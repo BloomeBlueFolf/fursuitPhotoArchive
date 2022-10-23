@@ -17,16 +17,16 @@ public class UserController {
     private UserServiceImpl userService;
 
 
-    @GetMapping("/user/registration")
+    @GetMapping("/admin/registration")
     public String createUser(Model model){
         UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
         model.addAttribute("userRegistrationDto", userRegistrationDto);
         return "userregistration";
     }
 
-    @PostMapping("/user/registration")
+    @PostMapping("/admin/registration")
     public ModelAndView createUser(@ModelAttribute ("userRegistrationDto") UserRegistrationDto userRegistrationDto){
         userService.saveUser(userRegistrationDto);
-        return new ModelAndView("redirect:/user/registration?success");
+        return new ModelAndView("redirect:/admin/registration?success");
     }
 }
