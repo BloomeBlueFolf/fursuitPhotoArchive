@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
+@RequestMapping("api/events")
 public class EventREST {
 
     @Autowired
@@ -17,18 +18,18 @@ public class EventREST {
     @Autowired
     private PhotoServiceImpl photoServiceImpl;
 
-    @PostMapping("event/add")
+    @PostMapping("add")
     public Event addEvent(@RequestBody Event event){
         eventServiceImpl.saveEvent(event);
         return event;
     }
 
-    @GetMapping("events/find")
+    @GetMapping("find")
     public List<Event> findEvents(){
         return eventServiceImpl.showEventsOrdered();
     }
 
-    @PutMapping("event/update/{id}/{label}")
+    @PutMapping("update/{id}/{label}")
     public Event updateEvent(@PathVariable ("id") long id, @PathVariable ("label") String label){
         Event updatedEvent = eventServiceImpl.getEventById(id);
         updatedEvent.setLabel(label);

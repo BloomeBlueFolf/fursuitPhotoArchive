@@ -46,12 +46,6 @@ public class PhotoController {
     @Autowired
     private EventServiceImpl eventServiceImpl;
 
-//    @PostMapping("/photos")
-//    public String savePhoto(@ModelAttribute ("photo") Photo photo){
-//        photoServiceImpl.savePhoto(photo);
-//        return "redirect:/user/";
-//    }
-
     @GetMapping("/admin/photo/move")
     public String movePhoto(Model model, @RequestParam long eventId, @RequestParam long photoId){
         Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
