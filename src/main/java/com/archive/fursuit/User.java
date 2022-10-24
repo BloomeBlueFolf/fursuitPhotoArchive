@@ -1,36 +1,34 @@
 package com.archive.fursuit;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Entity
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    private String email;
+    @Column(nullable = false)
+    private String username;
+    @Column(nullable = false)
     private String password;
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "users_roles",
-//                joinColumns = @JoinColumn(
-//                        name = "user_id", referencedColumnName = "id"),
-//                inverseJoinColumns = @JoinColumn(
-//                        name = "roles_id", referencedColumnName = "id"))
-    private String role;
+    private String roles = "";
 
-    public User(String firstName, String lastName, String email, String password, String role) {
+    public User(String firstName, String lastName, String username, String password, String roles) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.username = username;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
     public String getFirstName() {
@@ -49,12 +47,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -65,11 +63,18 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public List<String> getRolesList(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
     }
 }
