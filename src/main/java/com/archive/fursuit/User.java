@@ -31,6 +31,8 @@ public class User {
         this.roles = roles;
     }
 
+    public User(){};
+
     public String getFirstName() {
         return firstName;
     }
@@ -51,7 +53,7 @@ public class User {
         return username;
     }
 
-    public void setEmail(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

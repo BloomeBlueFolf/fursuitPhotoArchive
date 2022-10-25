@@ -18,12 +18,12 @@ public class UserServiceImpl implements UserServiceInterface {
 //    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public User saveUser(UserRegistrationDto userRegistrationDto) {
-        User user = new User(userRegistrationDto.getFirstName(),
-                userRegistrationDto.getLastName(),
-                userRegistrationDto.getEmail(),
-/**                passwordEncoder.encode*/userRegistrationDto.getPassword(),
-                "USER");
-        return userRepository.save(user);
+    public User saveUser(User user) {
+        User newUser = new User(user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+/**                passwordEncoder.encode*/user.getPassword(),
+                user.getRoles());
+        return userRepository.save(newUser);
     }
 }

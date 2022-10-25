@@ -12,7 +12,7 @@
             <div class="alert alert-info">Account succesfully added!</div>
         </div>
         <h1><span>Create a new account</span></h1>
-        <form th:action = "@{/admin/registration}" th:object="${userRegistrationDto}" method = "POST">
+        <form th:action = "@{/admin/registration}" th:object="${user}" method = "POST">
             <div class="form-group row">
                 <div class="col">
                     <label for="firstName" class="col-sm-2 col-form-label col-form-label-lg">First name</label>
@@ -32,11 +32,31 @@
                     <br/>
                     <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
                     <input type="password" id="password" class="form-control form-control-lg rounded-pill" th:field = "*{password}" placeholder="Enter password" th:required="required">
+                    <br/>
                 </div>
-            </div>
+                <h5>Roles</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="role1" id="role1" value = "USER" th:field="*{roles}" checked>
+                    <label class="form-check-label" for="role1">
+                        User
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="role2" id="role2" value = "ADMIN" th:field="*{roles}">
+                    <label class="form-check-label" for="role2">
+                        Admin
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="role3" id="role3" value = "USER,ADMIN" th:field="*{roles}">
+                    <label class="form-check-label" for="role3">
+                        User & Admin
+                    </label>
+                </div>
             <div class="col-sm">
                 <br/>
                 <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
+            </div>
             </div>
         </form>
     </div>
