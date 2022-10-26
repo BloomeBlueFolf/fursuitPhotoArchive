@@ -7,8 +7,9 @@
 </head>
 <body>
 <div class="container">
+  <br/>
   <h1>User Login</h1>
-  <form th:action = "@{/Login}" method = "POST">
+  <form th:action = "@{/login}" method = "POST">
     <div th:if = "${param.error}">
       <div class="alert alert-danger">Invalid username or password!</div>
     </div>
@@ -18,7 +19,7 @@
     <div class="form-group row">
       <div class="col">
         <label for="username" class="col-sm-2 col-form-label col-form-label-lg">Username</label>
-        <input type="text" class="form-control form-control-lg rounded-pill" id="username" name="username" placeholder="Enter email" th:required="required">
+        <input type="text" class="form-control form-control-lg rounded-pill" id="username" name="username" placeholder="Enter username" th:required="required">
       </div>
       <div class="col">
         <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
@@ -29,8 +30,6 @@
       <br/>
       <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
     </div>
-    <hr>
-    <h5><span>New user? <a href="/" th:ref="@{/registration}">Register here</a></span></h5>
   </form>
 </div>
 </body>
