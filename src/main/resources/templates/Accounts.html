@@ -9,6 +9,10 @@
 <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
 <div class="container">
     <br/>
+    <div th:if = "${param.success}">
+        <div class="alert alert-info w-25">Account succesfully deleted!</div>
+    </div>
+    <br/>
     <h3><span>Accounts</span></h3>
     <br/>
     <br/>
@@ -28,21 +32,23 @@
                   </div>
                   <div class="col">
                     <h5><strong>Username:</strong></h5>
-                </div>
-                <div class="col text-primary">
-                    <h5 th:text="${account.username}"></h5>
-                </div>
-                    <div class="col">
-                        <h5><strong>Roles:</strong></h5>
-                    </div>
-                    <div class="col text-primary">
-                        <h5 th:text="${account.roles}"></h5>
-                    </div>
+                  </div>
+                  <div class="col text-primary">
+                      <h5 th:text="${account.username}"></h5>
+                  </div>
+                  <div class="col">
+                      <h5><strong>Roles:</strong></h5>
+                  </div>
+                  <div class="col text-primary">
+                      <h5 th:text="${account.roles}"></h5>
+                  </div>
+                  <div class="col text-primary">
+                      <a th:href="@{/admin/account/delete(username=${account.username})}" class="btn btn-danger ms-2">Delete</a>
+                  </div>
         </div>
             <hr class="w-100">
         </div>
     </div>
-</div>
 <div th:insert="fragments/ReturnToIndex :: index-return"></div>
 <br/>
 </body>

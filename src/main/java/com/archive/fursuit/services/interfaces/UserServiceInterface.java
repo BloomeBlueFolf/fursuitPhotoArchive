@@ -9,4 +9,8 @@ public interface UserServiceInterface {
     User saveUser(User user);
 
     List<User> findAllAccounts();
+
+    User findUser(String username);
+
+    void deleteAccount(User user);
 }

@@ -32,4 +32,14 @@ public class UserServiceImpl implements UserServiceInterface {
     public List<User> findAllAccounts(){
         return userRepository.findAll();
     }
+
+    @Override
+    public User findUser(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void deleteAccount(User user){
+        userRepository.delete(user);
+    }
 }
