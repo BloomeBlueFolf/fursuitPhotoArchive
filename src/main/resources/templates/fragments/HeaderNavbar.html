@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="UTF-8">
         <title>Photo Upload</title>
@@ -13,19 +14,23 @@
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
                             <a class="nav-link" href="/admin/event/add"><p class="text-light bg-primary m-2 p-2">Create new event</p></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/registration"><p class="text-light bg-primary m-2 p-2">Create new account</p></a>
+                            <a sec:authorize="isAuthenticated()" class="nav-link" href="/user/profile"><p class="text-light bg-primary m-2 p-2">Profile</p></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/users/show"><p class="text-light bg-primary m-2 p-2 me-5">Show accounts</p></a>
+                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/registration"><p class="text-light bg-primary m-2 p-2">Create new account</p></a>
                         </li>
-                        <form class = "form-inline my-2 my-lg-0" th:action = "@{/logout}" method = "POST">
-                            <button type="submit" class="nav-link bg-warning p-2 m-3 ms-5 text-dark">Logout<img src="/images/Logout.png" width="20px" height="20px" alt="logout button" class="ms-2"></button>
-                        </form>
+                        <li class="nav-item">
+                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/accounts/show"><p class="text-light bg-primary m-2 p-2 me-5">Show accounts</p></a>
+                        </li>
                     </ul>
+                    <form class = "form-inline my-2 my-lg-0" th:action = "@{/logout}" method = "POST">
+                        <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-warning p-2 m-3 ms-5 text-dark">Logout<img src="/images/Logout.png" width="20px" height="20px" alt="logout button" class="ms-2"></button>
+                        <button sec:authorize="isAnonymous()" type="submit" th:href="@{~/login}" class="btn btn-warning p-2 m-3 ms-5 text-dark">Login<img src="/images/Login.png" width="20px" height="20px" alt="login button" class="ms-2"></button>
+                    </form>
                 </div>
             </nav>
         <br/>

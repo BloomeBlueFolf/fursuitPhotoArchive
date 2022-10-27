@@ -47,12 +47,6 @@
                         Admin
                     </label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="role3" id="role3" value = "USER,ADMIN" th:field="*{roles}">
-                    <label class="form-check-label" for="role3">
-                        User & Admin
-                    </label>
-                </div>
             <div class="col-sm">
                 <br/>
                 <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
@@ -61,5 +55,6 @@
         </form>
     </div>
     <div th:insert="fragments/ReturnToIndex :: index-return"></div>
+    <br/>
     </body>
 </html>

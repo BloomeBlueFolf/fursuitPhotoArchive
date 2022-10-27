@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
+    <div class="container">
+      <br/>
+          <h3><span>Profile</span></h3>
+          <br/>
+          <br/>
+          <div class="form-group row w-25">
+            <div class="col">
+              <h5><strong>Username</strong></h5>
+            </div>
+            <div class="col">
+              <h5 sec:authentication="name"></h5>
+            </div>
+          </div>
+          <br/>
+            <div class="form-group row w-25">
+              <div class="col">
+                <h5><strong>Roles</strong></h5>
+              </div>
+              <div class="col">
+                <h5 sec:authentication="principal.authorities"></h5>
+              </div>
+            </div>
+    </div>
+    <div th:insert="fragments/ReturnToIndex :: index-return"></div>
+    <br/>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="UTF-8">
     <title>Photo Upload</title>
@@ -24,7 +25,7 @@
         <div class=class="col-xs-6">
           <h1><span th:text="${event.label}"></span></h1>
           <br/>
-          <a th:href="@{/admin/photo/upload(id=${event.id})}" class="btn btn-primary">Add photo</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/photo/upload(id=${event.id})}" class="btn btn-primary">Add photo</a>
         </div>
       </div>
       <br/>
@@ -51,9 +52,9 @@
             <div th:if = "${photo.date} == ''">---</div>
             <div th:unless = "${photo.date} == ''" th:text = "${photo.date}"></div></td>
           <td>
-            <a th:href="@{/admin/event/editPhoto(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary">Edit photo</a>
-            <a th:href="@{/admin/photo/move(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary ms-2">Move photo</a>
-            <a th:href="@{/admin/event/deletePhoto/warning(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-danger ms-5">Delete photo</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/event/editPhoto(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary">Edit photo</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/photo/move(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-primary ms-2">Move photo</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/event/deletePhoto/warning(photoId=${photo.id}, eventId=${event.id})}" class="btn btn-danger ms-5">Delete photo</a>
           </td>
           <td> <a th:href="@{/user/photo/download(photoId=${photo.id})}">
           <img src="/images/Download.png" width="25px" height="25px" alt="download button" class="ms-5"></a>
