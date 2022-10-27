@@ -15,16 +15,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-                            <a class="nav-link" href="/admin/event/add"><p class="text-light bg-primary m-2 p-2">Create new event</p></a>
+                            <a class="nav-link" href="/admin/event/add"><p class="text-light bg-primary m-2 p-2 rounded">Create new event</p></a>
                         </li>
                         <li class="nav-item">
-                            <a sec:authorize="isAuthenticated()" class="nav-link" href="/user/profile"><p class="text-light bg-primary m-2 p-2">Profile</p></a>
+                            <a sec:authorize="isAuthenticated()" class="nav-link" href="/user/profile"><p class="text-light bg-primary m-2 p-2 rounded">Profile</p></a>
                         </li>
                         <li class="nav-item">
-                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/registration"><p class="text-light bg-primary m-2 p-2">Create new account</p></a>
+                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/registration"><p class="text-light bg-primary m-2 p-2 rounded">Create new account</p></a>
                         </li>
                         <li class="nav-item">
-                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/accounts/show"><p class="text-light bg-primary m-2 p-2 me-5">Show accounts</p></a>
+                            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/admin/accounts/show"><p class="text-light bg-primary m-2 p-2 me-5 rounded">Show accounts</p></a>
                         </li>
                     </ul>
                     <form class = "form-inline my-2 my-lg-0" th:action = "@{/logout}" method = "POST">

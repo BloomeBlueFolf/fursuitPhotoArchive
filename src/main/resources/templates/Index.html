@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                 <tr th:each = "event : ${events}">
-                    <th scope="row" th:text = "${event.label}"></th>
+                    <th scope="row"><img src="/images/Folder.png" width="25" height="25" alt="folder"><span th:text = "${event.label}" class="ms-2"></span></th>
                     <td> <div th:if = "${event.photos.size} == '0'">---</div>
                          <div th:unless = "${event.photos.size} == '0'" th:text = "${event.photos.size}"></div></td>
                     <td>

@@ -10,9 +10,12 @@
     <div class="container">
         <h1><span th:text="*{photo.label}"></span></h1>
         <br/>
+        <br/>
+        <h5><span>Where do you want to move the photography?</span></h5>
+        <br/>
         <form th:action = "@{/admin/photo/move(eventId=${eventId}, photoId=${photoId})}" th:object="${photo}" method = "POST">
             <div>
-                <select th:field="*{event.id}" id="events" class="p-4 mb-2 bg-info text-black rounded-pill h5">
+                <select th:field="*{event.id}" id="events" class="p-3 mb-2 bg-light text-black rounded-pill h5">
                     <option th:each="event : ${events}"
                             th:text="${event.label}"
                             th:value="${event.id}">

@@ -8,6 +8,9 @@
     <body>
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
         <div class="container">
+            <br/>
+            <h5><span>Upload a photography.</span></h5>
+            <br/>
             <form th:action = "@{/admin/photo/upload(id=${id})}" th:object="${photo}" method = "POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col">
@@ -21,7 +24,7 @@
                     <div class="form-group">
                         <br/>
                         <label for="PhotoDate" class="col-sm-2 col-form-label col-form-label-lg">Date</label>
-                        <input type="date" id="PhotoDate" class="form-control form-control-lg rounded-pill" th:field = "*{date}">
+                        <input type="date" id="PhotoDate" class="form-control form-control-lg rounded-pill w-25" th:field = "*{date}">
                     </div>
                     <br/>
                     <div class="form-group">

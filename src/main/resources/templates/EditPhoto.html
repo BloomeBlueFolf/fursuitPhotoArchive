@@ -8,6 +8,9 @@
     <body>
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
+        <br/>
+        <h5><span>Edit the photography.</span></h5>
+        <br/>
         <form th:action = "@{/admin/event/editPhoto(photoId=${photo.id}, eventId=${eventId})}" th:object="${photo}" method = "POST">
             <div class="form-group row">
                 <div class="col">
@@ -19,8 +22,9 @@
                     <input type="text" class="form-control form-control-lg rounded-pill" id="photographer" th:field = "*{photographer}" placeholder="Enter new photographer">
                 </div>
                 <div class="form-group">
+                    <br/>
                     <label for="PhotoDate" class="col-sm-2 col-form-label col-form-label-lg">Date</label>
-                    <input type="date" id="PhotoDate" class="form-control col-sm-2 col-form-label col-form-label-lg" th:field = "*{date}" placeholder="Enter new date">
+                    <input type="date" id="PhotoDate" class="form-control form-control-lg w-25 rounded-pill" th:field = "*{date}" placeholder="Enter new date">
                 </div>
             </div>
             <br/>

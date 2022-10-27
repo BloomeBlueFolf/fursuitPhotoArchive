@@ -8,6 +8,8 @@
     <body>
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
             <div class="container">
+                <h5><span>Rename the event.</span></h5>
+                <br/>
                 <form th:action = "@{/admin/event/rename}" th:object="${event}" method = "POST">
                     <div class="form-group row">
                         <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">New Label</label>
