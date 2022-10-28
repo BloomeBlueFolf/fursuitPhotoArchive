@@ -43,7 +43,9 @@
                       <h5 th:text="${account.roles}"></h5>
                   </div>
                   <div class="col text-primary">
+                      <div th:unless="${account.username == 'admin1'}">
                       <a th:href="@{/admin/account/delete(username=${account.username})}" class="btn btn-danger ms-2">Delete</a>
+                      </div>
                   </div>
         </div>
             <hr class="w-100">

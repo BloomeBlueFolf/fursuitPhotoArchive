@@ -20,7 +20,7 @@ public class DbInit implements CommandLineRunner {
 
     @Override
     public void run(String... args){
-        User admin1 = new User("admin1", "admin1", "admin1", passwordEncoder.encode("admin1"), "ADMIN");
+        User admin1 = new User("default", "default", "admin1", passwordEncoder.encode("admin1"), "ADMIN");
 
         List<User> users = List.of(admin1);
 
