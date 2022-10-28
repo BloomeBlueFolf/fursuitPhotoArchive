@@ -21,9 +21,8 @@ public class DbInit implements CommandLineRunner {
     @Override
     public void run(String... args){
         User admin1 = new User("admin1", "admin1", "admin1", passwordEncoder.encode("admin1"), "ADMIN");
-        User user1 = new User("user1", "user1", "user1", passwordEncoder.encode("user1"), "USER");
 
-        List<User> users = List.of(admin1, user1);
+        List<User> users = List.of(admin1);
 
         userRepository.saveAll(users);
     }
