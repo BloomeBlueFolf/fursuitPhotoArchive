@@ -1,10 +1,8 @@
 package com.archive.fursuit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -16,7 +14,7 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String label;
 
     private String photographer;

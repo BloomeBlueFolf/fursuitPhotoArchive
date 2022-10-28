@@ -29,8 +29,13 @@ public class UserController {
 
     @PostMapping("/admin/registration")
     public ModelAndView createUser(@ModelAttribute ("user") User user){
-        userService.saveUser(user);
-        return new ModelAndView("redirect:/admin/registration?success");
+        if(userService.existsUser(user)) {
+            return new ModelAndView("redirect:/admin/registration?exists");
+        }
+        else {
+            userService.saveUser(user);
+            return new ModelAndView("redirect:/admin/registration?success");
+        }
     }
 
     @GetMapping("/user/profile")

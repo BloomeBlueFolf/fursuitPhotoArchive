@@ -19,5 +19,5 @@ public interface PhotoServiceInterface {
 
     public List<Photo> findAllPhotosWithoutEvent();
 
-    public void createNewPhoto(Photo photo, long id, MultipartFile file);
+    public String createNewPhoto(Photo photo, long id, MultipartFile file);
 }

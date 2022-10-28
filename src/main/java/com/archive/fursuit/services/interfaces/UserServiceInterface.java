@@ -13,4 +13,6 @@ public interface UserServiceInterface {
     User findUser(String username);
 
     void deleteAccount(User user);
+
+    boolean existsUser(User user);
 }

@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserServiceInterface {
     public void deleteAccount(User user){
         userRepository.delete(user);
     }
+
+    @Override
+    public boolean existsUser(User user){
+        return userRepository.existsByUsername(user.getUsername());
+    }
 }

@@ -8,10 +8,14 @@
     <body>
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
-        <div th:if = "${param.success}">
-            <div class="alert alert-info">Account succesfully added!</div>
-        </div>
         <h1><span>Create a new account</span></h1>
+        <br/>
+        <div th:if = "${param.success}">
+            <div class="alert alert-info w-25">Account succesfully added!</div>
+        </div>
+        <div th:if = "${param.exists}">
+            <div class="alert alert-danger w-50">User already exists! Please choose another username.</div>
+        </div>
         <form th:action = "@{/admin/registration}" th:object="${user}" method = "POST">
             <div class="form-group row">
                 <div class="col">
@@ -22,16 +26,17 @@
                     <label for="lastName" class="col-sm-2 col-form-label col-form-label-lg">Last name</label>
                     <input type="text" class="form-control form-control-lg rounded-pill" id="lastName" th:field = "*{lastName}" placeholder="Enter last name" th:required="required">
                 </div>
-                <div class="form-group">
+                <div class="form-group row">
+                    <div class="col">
                     <br/>
                     <label for="username" class="col-sm-2 col-form-label col-form-label-lg">Username</label>
-                    <input type="text" id="username" class="form-control form-control-lg rounded-pill" th:field = "*{username}" placeholder="Enter username" th:required="required">
+                    <input type="text" id="username" class="form-control form-control-lg rounded-pill w-50" th:field = "*{username}" placeholder="Enter username" th:required="required">
                 </div>
                 <br/>
                 <div class="form-group">
                     <br/>
                     <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
-                    <input type="password" id="password" class="form-control form-control-lg rounded-pill" th:field = "*{password}" placeholder="Enter password" th:required="required">
+                    <input type="password" id="password" class="form-control form-control-lg rounded-pill w-50" th:field = "*{password}" placeholder="Enter password" th:required="required">
                     <br/>
                 </div>
                 <h5>Roles</h5>
@@ -50,6 +55,7 @@
             <div class="col-sm">
                 <br/>
                 <button type="submit" class="btn btn-primary rounded-pill m-2 p-2 align-text-top">Submit</button>
+            </div>
             </div>
             </div>
         </form>

@@ -55,16 +55,23 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
     }
 
     @Override
-    public void createNewPhoto(Photo formPhoto, long id, MultipartFile file){
+    public String createNewPhoto(Photo formPhoto, long id, MultipartFile file) {
         Photo newPhoto = new Photo();
         newPhoto.setLabel(formPhoto.getLabel());
         newPhoto.setPhotographer(formPhoto.getPhotographer());
         newPhoto.setDate(formPhoto.getDate());
-        try {
-            newPhoto.setFileType(file.getContentType());
-            newPhoto.setImage(ImageUtils.compressImage(file.getBytes()));
-        } catch(Exception e){ e.printStackTrace();
+        if (file.getContentType().contains("image")){
+            try {
+                newPhoto.setFileType(file.getContentType());
+                newPhoto.setImage(ImageUtils.compressImage(file.getBytes()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            this.assignEvent(newPhoto, id);
+            return "success";
         }
-        this.assignEvent(newPhoto, id);
+        else {
+            return "failed";
+        }
     }
 }

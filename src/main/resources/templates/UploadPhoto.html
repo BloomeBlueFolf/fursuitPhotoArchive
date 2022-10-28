@@ -11,6 +11,10 @@
             <br/>
             <h5><span>Upload a photography.</span></h5>
             <br/>
+            <div th:if = "${param.falseType}">
+                <div class="alert alert-danger w-50">Image type must be jpg, jpeg or png!</div>
+            </div>
+            <br/>
             <form th:action = "@{/admin/photo/upload(id=${id})}" th:object="${photo}" method = "POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col">

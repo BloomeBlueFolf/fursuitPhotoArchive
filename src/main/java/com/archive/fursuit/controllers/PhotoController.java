@@ -61,9 +61,14 @@ public class PhotoController {
     public ModelAndView uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id,
                                     @RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes){
-        photoServiceImpl.createNewPhoto(photo, id, file);
+        String msg = photoServiceImpl.createNewPhoto(photo, id, file);
         redirectAttributes.addAttribute("id", id);
-        return new ModelAndView("redirect:/user/event/showPhotos?photouploaded");
+        if(msg.equals("success")) {
+            return new ModelAndView("redirect:/user/event/showPhotos?photouploaded");
+        }
+        else {
+            return new ModelAndView("redirect:/admin/photo/upload?falseType");
+        }
     }
 
     @GetMapping("/user/photo/image")
