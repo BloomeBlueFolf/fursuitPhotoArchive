@@ -20,23 +20,23 @@
             <div class="form-group row">
                 <div class="col">
                     <label for="firstName" class="col-sm-2 col-form-label col-form-label-lg">First name</label>
-                    <input type="text" class="form-control form-control-lg rounded-pill" id="firstName" th:field = "*{firstName}" placeholder="Enter first name" th:required="required">
+                    <input type="text" maxlength="30" class="form-control form-control-lg rounded-pill" id="firstName" th:field = "*{firstName}" placeholder="Enter first name" th:required="required">
                 </div>
                 <div class="col">
                     <label for="lastName" class="col-sm-2 col-form-label col-form-label-lg">Last name</label>
-                    <input type="text" class="form-control form-control-lg rounded-pill" id="lastName" th:field = "*{lastName}" placeholder="Enter last name" th:required="required">
+                    <input type="text" maxlength="40" class="form-control form-control-lg rounded-pill" id="lastName" th:field = "*{lastName}" placeholder="Enter last name" th:required="required">
                 </div>
                 <div class="form-group row">
                     <div class="col">
                     <br/>
                     <label for="username" class="col-sm-2 col-form-label col-form-label-lg">Username</label>
-                    <input type="text" id="username" class="form-control form-control-lg rounded-pill w-50" th:field = "*{username}" placeholder="Enter username" th:required="required">
+                    <input type="text" maxlength="20" id="username" class="form-control form-control-lg rounded-pill w-50" th:field = "*{username}" placeholder="Enter username" th:required="required">
                 </div>
                 <br/>
                 <div class="form-group">
                     <br/>
                     <label for="password" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
-                    <input type="password" id="password" class="form-control form-control-lg rounded-pill w-50" th:field = "*{password}" placeholder="Enter password" th:required="required">
+                    <input type="password" maxlength="20" id="password" class="form-control form-control-lg rounded-pill w-50" th:field = "*{password}" placeholder="Enter password" th:required="required">
                     <br/>
                 </div>
                 <h5>Roles</h5>

@@ -10,16 +10,16 @@
     <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
     <div class="container">
       <div th:if = "${param.photouploaded}">
-        <div class="alert alert-info">Photo succesfully uploaded!</div>
+        <div class="alert alert-info w-25">Photo succesfully uploaded!</div>
       </div>
       <div th:if = "${param.photodeleted}">
-        <div class="alert alert-danger">Photo deleted!</div>
+        <div class="alert alert-danger w-25">Photo deleted!</div>
       </div>
       <div th:if = "${param.photomoved}">
-        <div class="alert alert-info">Photo moved!</div>
+        <div class="alert alert-info w-25">Photo moved!</div>
       </div>
       <div th:if = "${param.photoedited}">
-        <div class="alert alert-info">Photo succesfully edited!</div>
+        <div class="alert alert-info w-25">Photo succesfully edited!</div>
       </div>
       <div class="row">
         <div class=class="col-xs-6">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <br/>
-      <table class="table table-striped w-75 p-3">
+      <table class="table table-striped w-100 p-3">
         <thead class="table-dark">
         <tr>
           <th scope="col">Label</th>

@@ -10,19 +10,19 @@
         <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
         <div class="container">
             <div th:if = "${param.eventcreated}">
-                <div class="alert alert-info">Event succesfully created!</div>
+                <div class="alert alert-info w-25">Event succesfully created!</div>
             </div>
             <div th:if = "${param.eventdeleted}">
-                <div class="alert alert-danger">Event deleted!</div>
+                <div class="alert alert-danger w-25">Event deleted!</div>
             </div>
             <div th:if = "${param.eventrenamed}">
-                <div class="alert alert-info">Event renamed!</div>
+                <div class="alert alert-info w-25">Event renamed!</div>
             </div>
             <div class="row">
                 <h1>Events</h1>
             </div>
             <br/>
-            <table class="table table-striped w-75 p-3">
+            <table class="table table-striped w-100 p-3">
                 <thead class="table-dark">
                 <tr>
                     <th scope="col">Label</th>
