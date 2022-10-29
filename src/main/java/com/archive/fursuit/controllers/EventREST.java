@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping("api/events")
+@RequestMapping("api/")
 public class EventREST {
 
     @Autowired
@@ -18,22 +18,39 @@ public class EventREST {
     @Autowired
     private PhotoServiceImpl photoServiceImpl;
 
-    @PostMapping("add")
+    @PostMapping("private/event/add")
     public Event addEvent(@RequestBody Event event){
         eventServiceImpl.saveEvent(event);
         return event;
     }
 
-    @GetMapping("find")
+    @GetMapping("public/events/find")
     public List<Event> findEvents(){
         return eventServiceImpl.showEventsOrdered();
     }
 
-    @PutMapping("update/{id}/{label}")
-    public Event updateEvent(@PathVariable ("id") long id, @PathVariable ("label") String label){
-        Event updatedEvent = eventServiceImpl.getEventById(id);
-        updatedEvent.setLabel(label);
-        eventServiceImpl.saveEvent(updatedEvent);
-        return  updatedEvent;
+    @PutMapping("private/event/rename/{id}/{label}")
+    public String renameEvent(@PathVariable ("id") long id, @PathVariable ("label") String label){
+        Event renamedEvent = eventServiceImpl.getEventById(id);
+        if(renamedEvent == null){
+            return String.format("An event with ID %s doesn't exist.", id);
+        }
+        else{
+            renamedEvent.setLabel(label);
+            eventServiceImpl.saveEvent(renamedEvent);
+            return String.format("Event with ID %s successfully renamed to %s.", id, label);
+        }
+    }
+
+    @DeleteMapping("admin/event/delete/{id}")
+    public String deleteEvent(@PathVariable ("id") long id){
+        Event deleteEvent = eventServiceImpl.getEventById(id);
+        if(deleteEvent == null){
+            return String.format("An event with ID %s doesn't exist.", id);
+        }
+        else {
+            eventServiceImpl.deleteEvent(id);
+            return String.format("Event with ID %s successfully deleted.", id);
+        }
     }
 }
