@@ -43,10 +43,16 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
     }
 
     @Override
-    public void assignEvent(Photo photo, long id){
+    public String assignEvent(Photo photo, long id){
         Event event = eventRepository.findById(id);
-        photo.assignEvent(event);
-        photoRepository.save(photo);
+        if (event == null){
+            return String.format("A event with ID %s doesn't exist.", id);
+        }
+        else {
+            photo.assignEvent(event);
+            photoRepository.save(photo);
+            return String.format("Photo %s successfully moved to %s.", photo.getLabel(), event.getLabel());
+        }
     }
 
     @Override

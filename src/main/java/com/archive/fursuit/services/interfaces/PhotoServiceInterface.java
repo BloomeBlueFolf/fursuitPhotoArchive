@@ -15,7 +15,7 @@ public interface PhotoServiceInterface {
 
     public List<Photo> findAllPhotos();
 
-    public void assignEvent(Photo photo, long id);
+    public String assignEvent(Photo photo, long id);
 
     public List<Photo> findAllPhotosWithoutEvent();
 
