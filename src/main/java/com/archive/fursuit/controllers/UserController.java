@@ -56,3 +56,7 @@ public class UserController {
         return "redirect:/admin/accounts/show?success";
     }
 }
+
+//create user
+//show all users
+//delete user

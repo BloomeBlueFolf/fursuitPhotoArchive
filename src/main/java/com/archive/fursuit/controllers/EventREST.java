@@ -42,7 +42,7 @@ public class EventREST {
         }
     }
 
-    @DeleteMapping("admin/event/delete/{id}")
+    @DeleteMapping("private/event/delete/{id}")
     public String deleteEvent(@PathVariable ("id") long id){
         Event deleteEvent = eventServiceImpl.getEventById(id);
         if(deleteEvent == null){

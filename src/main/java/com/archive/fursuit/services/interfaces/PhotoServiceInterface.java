@@ -17,7 +17,5 @@ public interface PhotoServiceInterface {
 
     public String assignEvent(Photo photo, long id);
 
-    public List<Photo> findAllPhotosWithoutEvent();
-
     public String createNewPhoto(Photo photo, long id, MultipartFile file);
 }

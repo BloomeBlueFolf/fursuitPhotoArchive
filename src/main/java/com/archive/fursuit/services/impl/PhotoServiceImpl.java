@@ -34,7 +34,7 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
 
     @Override
     public Photo getPhotoById(long id){
-        return photoRepository.findPhotoById(id);
+        return photoRepository.findById(id);
     }
 
     @Override
@@ -54,8 +54,6 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
             return String.format("Photo %s successfully moved to %s.", photo.getLabel(), event.getLabel());
         }
     }
-
-    @Override
     public List<Photo> findAllPhotosWithoutEvent(){
         return photoRepository.findAll();
     }
