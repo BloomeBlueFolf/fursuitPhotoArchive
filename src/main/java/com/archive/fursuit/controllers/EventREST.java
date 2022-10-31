@@ -24,11 +24,6 @@ public class EventREST {
         return event;
     }
 
-    @GetMapping("public/hello")
-    public String sayHello(){
-        return "Hello";
-    }
-
     @GetMapping("public/events/find")
     public List<Event> findEvents(){
         return eventServiceImpl.showEventsOrdered();
