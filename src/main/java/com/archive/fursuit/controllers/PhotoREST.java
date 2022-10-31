@@ -1,11 +1,15 @@
 package com.archive.fursuit.controllers;
 
-import com.archive.fursuit.Event;
+import com.archive.fursuit.ImageUtils;
 import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,10 +33,10 @@ public class PhotoREST {
         }
     }
 
-    @PostMapping("upload")
-    public Photo uploadPhoto(@RequestBody Photo photo){
-        photoServiceImpl.savePhoto(photo);
-        return photo;
+    @PostMapping("private/photo/upload")
+    public List<Photo> uploadPhoto(@RequestBody Photo photo, MultipartFile file, @PathVariable ("eventId") long eventId) {
+        photoServiceImpl.createNewPhoto(new Photo(), eventId, file);
+        return eventServiceImpl.getEventById(eventId).getPhotos();
     }
 
     @DeleteMapping("private/photo/delete/{id}")
@@ -73,8 +77,15 @@ public class PhotoREST {
         }
     }
 
-
-    //downloadPhoto
-
-    //uploadPhoto with image
+    @GetMapping("user/photo/download/{id}")
+    public ResponseEntity<?> getImage(@PathVariable("id") long id){
+        Photo photo = photoServiceImpl.getPhotoById(id);
+        if(photo != null) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.valueOf(photo.getFileType()))
+                    .body(ImageUtils.decompressImage(photo.getImage()));
+        } else {
+            return  ResponseEntity.status(HttpStatus.OK).body(String.format("Image with ID %s not available.", id));
+        }
+    }
 }
