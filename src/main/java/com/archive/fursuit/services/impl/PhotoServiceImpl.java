@@ -54,9 +54,6 @@ public class PhotoServiceImpl implements PhotoServiceInterface {
             return String.format("Photo %s successfully moved to %s.", photo.getLabel(), event.getLabel());
         }
     }
-    public List<Photo> findAllPhotosWithoutEvent(){
-        return photoRepository.findAll();
-    }
 
     @Override
     public String createNewPhoto(Photo formPhoto, long id, MultipartFile file) {
