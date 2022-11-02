@@ -1,0 +1,11 @@
+.dropdown-item {
+            background-color: #0275d8;
+}
+
+.danger {
+            background-color: #d9534f;
+}
+
+.dropdown-menu a:hover {
+            background: black;
+}
