@@ -1,54 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <meta charset="UTF-8">
-        <title>Events</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
-        <div class="container">
-            <div th:if = "${param.eventcreated}">
-                <div class="alert alert-info w-25">Event succesfully created!</div>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Events</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <style type="text/css">
+
+        .dropdown-item {
+            background-color: #0275d8;
+        }
+         .danger {
+            background-color: #d9534f;
+        }
+        .dropdown-menu a:hover {
+            background: black;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/HeaderNavbar :: header-navbar"></div>
+<div class="container">
+  <div th:if = "${param.eventcreated}">
+    <div class="alert alert-info w-25">Event succesfully created!</div>
+  </div>
+  <div th:if = "${param.eventdeleted}">
+    <div class="alert alert-danger w-25">Event deleted!</div>
+  </div>
+  <div th:if = "${param.eventrenamed}">
+    <div class="alert alert-info w-25">Event renamed!</div>
+  </div>
+  <div class="row">
+    <h1>Events</h1>
+  </div>
+  <br/>
+  <table class="table table-striped w-100 p-3">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Label</th>
+      <th scope="col">Number of photos</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "event : ${events}">
+      <th  class="align-middle" scope="row"><img src="/images/Folder.png" width="25" height="25" alt="folder"><span th:text = "${event.label}" class="ms-2"></span></th>
+      <td class="align-middle"> <div th:if = "${event.photos.size} == '0'">0</div>
+        <div th:unless = "${event.photos.size} == '0'" th:text = "${event.photos.size}"></div></td>
+      <td class="p-3">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+          <a sec:authorize="hasRole('ROLE_ADMIN')" type="button" class="btn btn-primary" th:href="@{/admin/photo/upload(id=${event.id})}">Upload photo</a>
+
+          <div class="btn-group" role="group">
+            <a id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <a class="dropdown-item text-light rounded-top p-2" th:href="@{/user/event/showPhotos(id=${event.id})}">Show photos</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item text-light p-2" th:href="@{/admin/event/rename(id=${event.id})}">Rename event</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item danger text-light rounded-bottom p-2" th:href="@{/admin/event/delete/warning(id=${event.id})}">Delete event</a>
             </div>
-            <div th:if = "${param.eventdeleted}">
-                <div class="alert alert-danger w-25">Event deleted!</div>
-            </div>
-            <div th:if = "${param.eventrenamed}">
-                <div class="alert alert-info w-25">Event renamed!</div>
-            </div>
-            <div class="row">
-                <h1>Events</h1>
-            </div>
-            <br/>
-            <table class="table table-striped w-100 p-3">
-                <thead class="table-dark">
-                <tr>
-                    <th scope="col">Label</th>
-                    <th scope="col">Number of photos</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each = "event : ${events}">
-                    <th scope="row"><img src="/images/Folder.png" width="25" height="25" alt="folder"><span th:text = "${event.label}" class="ms-2"></span></th>
-                    <td> <div th:if = "${event.photos.size} == '0'">0</div>
-                         <div th:unless = "${event.photos.size} == '0'" th:text = "${event.photos.size}"></div></td>
-                    <td>
-                        <a th:href="@{/user/event/showPhotos(id=${event.id})}" class="btn btn-primary">Show photos</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/photo/upload(id=${event.id})}" class="btn btn-primary ms-2">Upload photo</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/event/rename(id=${event.id})}" class="btn btn-primary ms-2">Rename event</a>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/event/delete/warning(id=${event.id})}" class="btn btn-danger ms-5">Delete event</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <br/>
-            <hr class="w-75 ">
-            <a th:href="@{/user}"><img src="/images/Refresh.png" alt="refresh button" width="35px" height="35px" class="ms-5"></a>
+          </div>
         </div>
-        <br/>
-        <div th:insert="fragments/ReturnToIndex :: dev-credits"></div>
-    </body>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <br/>
+  <hr>
+  <a th:href="@{/user}"><img src="/images/Refresh.png" alt="refresh button" width="35px" height="35px" class="ms-5"></a>
+</div>
+<br/>
+<br/>
+<div th:insert="fragments/ReturnToIndex :: dev-credits"></div>
+</body>
 </html>
