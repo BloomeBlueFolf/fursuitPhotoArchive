@@ -1,8 +1,12 @@
 package com.archive.fursuit.controllers;
 
+import com.archive.fursuit.Credentials;
 import com.archive.fursuit.User;
 import com.archive.fursuit.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +18,21 @@ public class UserREST {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/private/user/get/{username}")
-    public User getUser(@PathVariable ("username") String username){
-        return userService.findUser(username);
+    public ResponseEntity<?> getUser(@PathVariable ("username") String username, @RequestBody Credentials credentials){
+        User user = userService.findUser(credentials.getUsername());
+        if(user != null && passwordEncoder.matches(credentials.getPassword(), user.getPassword())){
+
+            if(userService.findUser(username) == null){
+                return new ResponseEntity<>("Requested user doesn't exist.", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(userService.findUser(username), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
+        }
     }
 
     @GetMapping("/private/user/getAll")

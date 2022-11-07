@@ -1,6 +1,7 @@
 package com.archive.fursuit.controllers;
 
 import com.archive.fursuit.Event;
+import com.archive.fursuit.Photo;
 import com.archive.fursuit.services.impl.EventServiceImpl;
 import com.archive.fursuit.services.impl.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,9 @@ public class EventREST {
             eventServiceImpl.deleteEvent(id);
             return String.format("Event with ID %s successfully deleted.", id);
         }
+    }
+    @GetMapping("public/event/find/{id}")
+    public Event find(@PathVariable ("id") long id){
+        return eventServiceImpl.getEventById(id);
     }
 }

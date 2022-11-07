@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserServiceInterface {
     }
 
     @Override
-    public List<User> findAllAccounts(){
+    public List<User> findAllAccounts() {
         return userRepository.findAll();
     }
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserServiceInterface {
     }
 
     @Override
-    public boolean existsUser(User user){
+    public boolean existsUser(User user) {
         return userRepository.existsByUsername(user.getUsername());
     }
 }

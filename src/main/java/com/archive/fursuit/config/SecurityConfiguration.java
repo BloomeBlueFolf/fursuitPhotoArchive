@@ -1,5 +1,7 @@
 package com.archive.fursuit.config;
 
+import com.archive.fursuit.Credentials;
+import com.archive.fursuit.User;
 import com.archive.fursuit.security.UserPrincipalDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,9 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/credits").permitAll()
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/private/**").hasRole("ADMIN")
-                .antMatchers("/api/user/**").authenticated()
-                .antMatchers("/api/public/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
