@@ -1,6 +1,5 @@
 package com.archive.fursuit.controllers;
 
-import com.archive.fursuit.Credentials;
 import com.archive.fursuit.User;
 import com.archive.fursuit.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
@@ -22,9 +21,9 @@ public class UserREST {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/private/user/get/{username}")
-    public ResponseEntity<?> getUser(@PathVariable ("username") String username, @RequestBody Credentials credentials){
-        User user = userService.findUser(credentials.getUsername());
-        if(user != null && passwordEncoder.matches(credentials.getPassword(), user.getPassword())){
+    public ResponseEntity<?> getUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
+        User user = userService.findUser(header.get("username"));
+        if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword())){
 
             if(userService.findUser(username) == null){
                 return new ResponseEntity<>("Requested user doesn't exist.", HttpStatus.NOT_FOUND);
@@ -36,28 +35,43 @@ public class UserREST {
     }
 
     @GetMapping("/private/user/getAll")
-        public List<User> findAllAccounts(){
-        return userService.findAllAccounts();
+        public ResponseEntity<?> findAllAccounts(@RequestHeader Map<String, String> header){
+            User user = userService.findUser(header.get("username"));
+            if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword())) {
+                return new ResponseEntity<>(userService.findAllAccounts(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
+            }
     }
 
     @DeleteMapping("/private/user/delete/{username}")
-    public String deleteUser(@PathVariable ("username") String username){
-        User deletedUser = userService.findUser(username);
-        if(deletedUser == null) {
-            return String.format("Deleting failed. %s doesn't exist.", username);
+    public ResponseEntity<?> deleteUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
+
+        if(username.equals("admin1")) {
+            return new ResponseEntity<>("admin1 is the standard administrator and cannot be deleted!", HttpStatus.BAD_REQUEST);
         }
-        else {
-            if (deletedUser.getUsername().equals("admin1")) {
-                return "Admin1 is the main admin and can not be deleted!";
+        User authUser = userService.findUser(header.get("username"));
+        if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())){
+
+            User deletedUser = userService.findUser(username);
+            if(deletedUser == null) {
+                return new ResponseEntity<>(String.format("Deleting failed. %s doesn't exist.", username), HttpStatus.NOT_FOUND);
             } else {
                 userService.deleteAccount(deletedUser);
-                return String.format("User %s successfully deleted.", username);
+                return new ResponseEntity<>(String.format("User %s successfully deleted.", username), HttpStatus.OK);
             }
+        } else {
+            return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
         }
     }
 
-    @PostMapping("private/user/create")
-    public User createUser(@RequestBody User user){
-        return userService.saveUser(user);
+    @PostMapping("/private/user/create")
+    public ResponseEntity<?> createUser(@RequestBody User user, @RequestHeader Map<String, String> header){
+        User authUser = userService.findUser(header.get("username"));
+        if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
+            return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
+        }
     }
 }

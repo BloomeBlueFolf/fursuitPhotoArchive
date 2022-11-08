@@ -1,7 +1,5 @@
 package com.archive.fursuit.config;
 
-import com.archive.fursuit.Credentials;
-import com.archive.fursuit.User;
 import com.archive.fursuit.security.UserPrincipalDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,7 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID", "remember-me")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
                 .and()
-                .rememberMe().userDetailsService(userPrincipalDetailsService);
+                .rememberMe().userDetailsService(userPrincipalDetailsService)
+                .and()
+                .csrf().disable();
     }
 
     @Bean
