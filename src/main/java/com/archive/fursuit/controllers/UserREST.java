@@ -20,7 +20,7 @@ public class UserREST {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/private/user/get/{username}")
+    @GetMapping("private/user/get/{username}")
     public ResponseEntity<?> getUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
         User user = userService.findUser(header.get("username"));
         if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword())){
@@ -34,7 +34,7 @@ public class UserREST {
         }
     }
 
-    @GetMapping("/private/user/getAll")
+    @GetMapping("private/user/getAll")
         public ResponseEntity<?> findAllAccounts(@RequestHeader Map<String, String> header){
             User user = userService.findUser(header.get("username"));
             if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword())) {
@@ -44,7 +44,7 @@ public class UserREST {
             }
     }
 
-    @DeleteMapping("/private/user/delete/{username}")
+    @DeleteMapping("private/user/delete/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
 
         if(username.equals("admin1")) {
@@ -65,7 +65,7 @@ public class UserREST {
         }
     }
 
-    @PostMapping("/private/user/create")
+    @PostMapping("private/user/create")
     public ResponseEntity<?> createUser(@RequestBody User user, @RequestHeader Map<String, String> header){
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
