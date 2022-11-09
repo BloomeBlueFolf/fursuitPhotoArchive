@@ -20,10 +20,10 @@ public class UserREST {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("private/user/get/{username}")
+    @GetMapping("admin/user/get/{username}")
     public ResponseEntity<?> getUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
         User user = userService.findUser(header.get("username"));
-        if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword())){
+        if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword()) && user.getRoles().contains("ADMIN")){
 
             if(userService.findUser(username) == null){
                 return new ResponseEntity<>("Requested user doesn't exist.", HttpStatus.NOT_FOUND);
@@ -34,24 +34,24 @@ public class UserREST {
         }
     }
 
-    @GetMapping("private/user/getAll")
+    @GetMapping("admin/user/getAll")
         public ResponseEntity<?> findAllAccounts(@RequestHeader Map<String, String> header){
             User user = userService.findUser(header.get("username"));
-            if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword())) {
+            if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword()) && user.getRoles().contains("ADMIN")) {
                 return new ResponseEntity<>(userService.findAllAccounts(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
             }
     }
 
-    @DeleteMapping("private/user/delete/{username}")
+    @DeleteMapping("admin/user/delete/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
 
         if(username.equals("admin1")) {
             return new ResponseEntity<>("admin1 is the standard administrator and cannot be deleted!", HttpStatus.BAD_REQUEST);
         }
         User authUser = userService.findUser(header.get("username"));
-        if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())){
+        if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword()) && authUser.getRoles().contains("ADMIN")){
 
             User deletedUser = userService.findUser(username);
             if(deletedUser == null) {
@@ -65,10 +65,10 @@ public class UserREST {
         }
     }
 
-    @PostMapping("private/user/create")
+    @PostMapping("admin/user/create")
     public ResponseEntity<?> createUser(@RequestBody User user, @RequestHeader Map<String, String> header){
         User authUser = userService.findUser(header.get("username"));
-        if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
+        if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword()) && authUser.getRoles().contains("ADMIN")) {
             return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
