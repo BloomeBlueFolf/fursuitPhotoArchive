@@ -34,6 +34,12 @@ public class Photo {
 
     public Photo(){};
 
+    public Photo(String label, String photographer, String date) {
+        this.label = label;
+        this.photographer = photographer;
+        this.date = date;
+    }
+
     public long getId() {
         return id;
     }

@@ -43,13 +43,13 @@ public class PhotoREST {
             return new ResponseEntity<>(allPhotos, HttpStatus.OK);
         }
     }
-    //Fixing
+
     @PostMapping("private/photo/upload/{eventId}")
-    public ResponseEntity<?> uploadPhoto(@RequestBody Photo photo, MultipartFile file, @PathVariable ("eventId") long eventId, @RequestHeader Map<String, String> header) {
+    public ResponseEntity<?> uploadPhoto(@RequestParam ("file") MultipartFile file, @RequestHeader Map<String, String> header, @PathVariable ("eventId") long eventId) {
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
-            photoServiceImpl.createNewPhoto(new Photo(), eventId, file);
-            return new ResponseEntity<>(eventServiceImpl.getEventById(eventId).getPhotos(), HttpStatus.OK);
+            photoServiceImpl.createNewPhoto(new Photo(header.get("label"), header.get("photographer"), header.get("date")), eventId, file);
+            return new ResponseEntity<>("Photography succesfully uploaded.", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
         }
