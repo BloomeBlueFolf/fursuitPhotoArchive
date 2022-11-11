@@ -118,7 +118,6 @@ public class PhotoController {
         logger.info("Photography download evoked.");
 
         HttpHeaders header = new HttpHeaders();
-        logger.info("Get photography by ID from database.");
         Photo photo = photoServiceImpl.getPhotoById(photoId);
         header.add(HttpHeaders.CONTENT_DISPOSITION, photo.getLabel()+photo.getFileType());
         logger.info("Return photography for download.");
