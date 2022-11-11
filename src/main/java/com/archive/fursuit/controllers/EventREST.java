@@ -34,6 +34,7 @@ public class EventREST {
 
     @GetMapping("public/events/find")
     public ResponseEntity<?> findEvents(){
+
         List<Event> events = eventServiceImpl.showEventsOrdered();
         if (events.isEmpty()) {
             return new ResponseEntity<>("Currently there are no events existing.", HttpStatus.OK);
@@ -44,6 +45,7 @@ public class EventREST {
 
     @GetMapping("public/events/findLabels")
     public ResponseEntity<List<String>> findEventLabels(){
+
         List<Event> eventList = eventServiceImpl.showEventsOrdered();
         List<String> labelList = new LinkedList<>();
         for (Event event : eventList) {
@@ -54,6 +56,7 @@ public class EventREST {
 
     @GetMapping("public/event/find/{id}")
     public ResponseEntity<?> find(@PathVariable ("id") long id){
+
         Event event = eventServiceImpl.getEventById(id);
         if (event == null) {
             return new ResponseEntity<>("An event with this ID doesn't exist.", HttpStatus.NOT_FOUND);
@@ -63,7 +66,9 @@ public class EventREST {
     }
 
     @PostMapping("private/event/add")
-    public ResponseEntity<?> addEvent(@RequestBody Event event, @RequestHeader Map<String, String> header) {
+    public ResponseEntity<?> addEvent(@RequestBody Event event,
+                                      @RequestHeader Map<String, String> header) {
+
         User authUser = userService.findUser(header.get("username"));
         if (authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
             eventServiceImpl.saveEvent(event);
@@ -73,8 +78,11 @@ public class EventREST {
         }
     }
 
-    @PutMapping("private/event/rename/{id}/{label}")
-    public ResponseEntity<?> renameEvent(@PathVariable ("id") long id, @PathVariable ("label") String label, @RequestHeader Map<String, String> header){
+    @PutMapping("private/event/rename/{id}")
+    public ResponseEntity<?> renameEvent(@PathVariable ("id") long id,
+                                         @RequestBody Event event,
+                                         @RequestHeader Map<String, String> header){
+
         User authUser = userService.findUser(header.get("username"));
         if (authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
             Event renamedEvent = eventServiceImpl.getEventById(id);
@@ -82,9 +90,9 @@ public class EventREST {
                 return new ResponseEntity<>(String.format("An event with ID %s doesn't exist.", id), HttpStatus.NOT_FOUND);
             }
             else{
-                renamedEvent.setLabel(label);
+                renamedEvent.setLabel(event.getLabel());
                 eventServiceImpl.saveEvent(renamedEvent);
-                return new ResponseEntity<>(String.format("Event with ID %s successfully renamed to %s.", id, label), HttpStatus.OK);
+                return new ResponseEntity<>(String.format("Event with ID %s successfully renamed", id), HttpStatus.OK);
             }
         } else {
             return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
@@ -92,7 +100,9 @@ public class EventREST {
     }
 
     @DeleteMapping("private/event/delete/{id}")
-    public ResponseEntity<?> deleteEvent(@PathVariable ("id") long id, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> deleteEvent(@PathVariable ("id") long id,
+                                         @RequestHeader Map<String, String> header){
+
         User authUser = userService.findUser(header.get("username"));
         if (authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
             Event deleteEvent = eventServiceImpl.getEventById(id);

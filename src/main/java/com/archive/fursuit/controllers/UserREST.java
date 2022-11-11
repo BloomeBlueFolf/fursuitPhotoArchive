@@ -21,7 +21,9 @@ public class UserREST {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("admin/user/get/{username}")
-    public ResponseEntity<?> getUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> getUser(@PathVariable ("username") String username,
+                                     @RequestHeader Map<String, String> header){
+
         User user = userService.findUser(header.get("username"));
         if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword()) && user.getRoles().contains("ADMIN")){
 
@@ -36,6 +38,7 @@ public class UserREST {
 
     @GetMapping("admin/user/getAll")
         public ResponseEntity<?> findAllAccounts(@RequestHeader Map<String, String> header){
+
             User user = userService.findUser(header.get("username"));
             if(user != null && passwordEncoder.matches(header.get("password"), user.getPassword()) && user.getRoles().contains("ADMIN")) {
                 return new ResponseEntity<>(userService.findAllAccounts(), HttpStatus.OK);
@@ -45,7 +48,8 @@ public class UserREST {
     }
 
     @DeleteMapping("admin/user/delete/{username}")
-    public ResponseEntity<?> deleteUser(@PathVariable ("username") String username, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> deleteUser(@PathVariable ("username") String username,
+                                        @RequestHeader Map<String, String> header){
 
         if(username.equals("admin1")) {
             return new ResponseEntity<>("admin1 is the standard administrator and cannot be deleted!", HttpStatus.BAD_REQUEST);
@@ -65,8 +69,10 @@ public class UserREST {
         }
     }
 
-    @PostMapping("admin/user/create")
-    public ResponseEntity<?> createUser(@RequestBody User user, @RequestHeader Map<String, String> header){
+    @PutMapping("admin/user/create")
+    public ResponseEntity<?> createUser(@RequestBody User user,
+                                        @RequestHeader Map<String, String> header){
+
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword()) && authUser.getRoles().contains("ADMIN")) {
             return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);

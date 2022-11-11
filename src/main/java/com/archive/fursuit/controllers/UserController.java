@@ -22,6 +22,7 @@ public class UserController {
 
     @GetMapping("/admin/registration")
     public String createUser(Model model){
+
         User user = new User();
         model.addAttribute("user", user);
         return "userregistration";
@@ -29,10 +30,10 @@ public class UserController {
 
     @PostMapping("/admin/registration")
     public ModelAndView createUser(@ModelAttribute ("user") User user){
+
         if(userService.existsUser(user)) {
             return new ModelAndView("redirect:/admin/registration?exists");
-        }
-        else {
+        } else {
             userService.saveUser(user);
             return new ModelAndView("redirect:/admin/registration?success");
         }
@@ -40,11 +41,13 @@ public class UserController {
 
     @GetMapping("/user/profile")
     public String showProfile(){
+
         return "profile";
     }
 
     @GetMapping("/admin/accounts/show")
     public String showAccounts(Model model){
+
         List<User> accounts = new ArrayList<>();
         model.addAttribute("accounts", userService.findAllAccounts());
         return "accounts";
@@ -52,11 +55,8 @@ public class UserController {
 
     @GetMapping("/admin/account/delete")
     public String deleteAccount(@RequestParam ("username") String username){
+
         userService.deleteAccount(userService.findUser(username));
         return "redirect:/admin/accounts/show?success";
     }
 }
-
-//create user
-//show all users
-//delete user

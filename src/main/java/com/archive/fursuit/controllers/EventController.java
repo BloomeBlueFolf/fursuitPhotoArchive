@@ -21,12 +21,14 @@ public class EventController {
 
     @GetMapping("/user")
     public String getEvents(Model model){
+
         model.addAttribute("events", eventServiceImpl.showEventsOrdered());
         return "index";
     }
 
     @GetMapping("/admin/event/add")
     public String createEvent(Model model){
+
         Event event = new Event();
         model.addAttribute("event", event);
         return "createEvent";
@@ -34,12 +36,14 @@ public class EventController {
 
     @PostMapping("/admin/events")
     public String saveEvent(@ModelAttribute ("event") Event event){
+
         eventServiceImpl.saveEvent(event);
         return "redirect:/user?eventcreated";
     }
 
     @GetMapping("/user/event/showPhotos")
     public String showPhotos(Model model, @RequestParam long id){
+
         Event event = eventServiceImpl.getEventById(id);
         model.addAttribute("photos", eventServiceImpl.sortPhotosByIdDesc(event));
         model.addAttribute("event", eventServiceImpl.getEventById(id));
@@ -47,21 +51,29 @@ public class EventController {
     }
 
     @GetMapping("/admin/event/deletePhoto/warning")
-    public String deletePhotoWarning(Model model, @RequestParam long photoId, @RequestParam long eventId){
+    public String deletePhotoWarning(Model model, @RequestParam long photoId,
+                                     @RequestParam long eventId){
+
         model.addAttribute("eventId", eventId);
         model.addAttribute("photoId", photoId);
         return "deleteWarningPhoto";
     }
 
     @GetMapping("/admin/event/deletePhoto")
-    public String deletePhoto(@RequestParam long photoId, @RequestParam long eventId, RedirectAttributes redirectAttributes){
+    public String deletePhoto(@RequestParam long photoId,
+                              @RequestParam long eventId,
+                              RedirectAttributes redirectAttributes){
+
         eventServiceImpl.deletePhoto(photoId);
         redirectAttributes.addAttribute("id", eventId);
         return "redirect:/user/event/showPhotos?photodeleted";
     }
 
     @GetMapping("/admin/event/editPhoto")
-    public String editPhoto(Model model, @RequestParam long photoId, @RequestParam long eventId){
+    public String editPhoto(Model model,
+                            @RequestParam long photoId,
+                            @RequestParam long eventId){
+
         Photo editedPhoto = photoServiceImpl.getPhotoById(photoId);
         model.addAttribute("photo", editedPhoto);
         model.addAttribute("eventId", eventId);
@@ -69,7 +81,11 @@ public class EventController {
     }
 
     @PostMapping("/admin/event/editPhoto")
-    public String editPhoto(RedirectAttributes redirectAttributes, @RequestParam long photoId, @RequestParam long eventId, @ModelAttribute Photo photo){
+    public String editPhoto(RedirectAttributes redirectAttributes,
+                            @RequestParam long photoId,
+                            @RequestParam long eventId,
+                            @ModelAttribute Photo photo){
+
         Photo editedPhoto = photoServiceImpl.getPhotoById(photoId);
         editedPhoto.setLabel(photo.getLabel());
         editedPhoto.setPhotographer(photo.getPhotographer());
@@ -80,19 +96,24 @@ public class EventController {
     }
 
     @GetMapping("/admin/event/delete/warning")
-    public String deleteWarning(Model model, @RequestParam long id){
+    public String deleteWarning(Model model,
+                                @RequestParam long id){
+
         model.addAttribute("id", id);
         return "deleteWarning";
     }
 
     @GetMapping("/admin/event/delete")
     public String deleteEvent(@RequestParam long id){
+
         eventServiceImpl.deleteEvent(id);
         return "redirect:/user?eventdeleted";
     }
 
     @GetMapping("/admin/event/rename")
-    public String renameEvent(@RequestParam long id, Model model){
+    public String renameEvent(@RequestParam long id,
+                              Model model){
+
         Event event = eventServiceImpl.getEventById(id);
         model.addAttribute("event", event);
         model.addAttribute("id", id);
@@ -100,7 +121,9 @@ public class EventController {
     }
 
     @PostMapping("/admin/event/rename")
-    public String renameEvent(@ModelAttribute Event event, @RequestParam long id){
+    public String renameEvent(@ModelAttribute Event event,
+                              @RequestParam long id){
+
           eventServiceImpl.renameEvent(id, event);
         return "redirect:/user?eventrenamed";
     }

@@ -36,6 +36,7 @@ public class PhotoREST {
 
     @GetMapping("public/photos/findAll")
     public ResponseEntity<?> getPhotos() {
+
         List<Photo> allPhotos = photoServiceImpl.findAllPhotos();
         if (allPhotos.isEmpty()) {
             return new ResponseEntity<>("Currently there exist no photographies.", HttpStatus.NOT_FOUND);
@@ -45,10 +46,16 @@ public class PhotoREST {
     }
 
     @PostMapping("private/photo/upload/{eventId}")
-    public ResponseEntity<?> uploadPhoto(@RequestParam ("file") MultipartFile file, @RequestHeader Map<String, String> header, @PathVariable ("eventId") long eventId) {
+    public ResponseEntity<?> uploadPhoto(@RequestParam ("file") MultipartFile file,
+                                         @RequestHeader Map<String, String> header,
+                                         @RequestParam ("label") String label,
+                                         @RequestParam ("photographer") String photographer,
+                                         @RequestParam ("date") String date,
+                                         @PathVariable ("eventId") long eventId) {
+
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
-            photoServiceImpl.createNewPhoto(new Photo(header.get("label"), header.get("photographer"), header.get("date")), eventId, file);
+            photoServiceImpl.createNewPhoto(new Photo(label, photographer, date), eventId, file);
             return new ResponseEntity<>("Photography succesfully uploaded.", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Wrong credentials. Try again.", HttpStatus.FORBIDDEN);
@@ -56,7 +63,9 @@ public class PhotoREST {
     }
 
     @DeleteMapping("private/photo/delete/{id}")
-    public ResponseEntity<?> deletePhoto(@PathVariable ("id") long id, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> deletePhoto(@PathVariable ("id") long id,
+                                         @RequestHeader Map<String, String> header){
+
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
             Photo deletedPhoto = photoServiceImpl.getPhotoById(id);
@@ -72,7 +81,10 @@ public class PhotoREST {
     }
 
     @PostMapping("private/photo/move/{photoId}/{eventId}")
-    public ResponseEntity<?> movePhoto(@PathVariable ("photoId") long photoId, @PathVariable ("eventId") long eventId, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> movePhoto(@PathVariable ("photoId") long photoId,
+                                       @PathVariable ("eventId") long eventId,
+                                       @RequestHeader Map<String, String> header){
+
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
             Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
@@ -87,7 +99,10 @@ public class PhotoREST {
     }
 
     @PutMapping("private/photo/edit/{id}")
-    public ResponseEntity<?> editPhoto(@PathVariable ("id") long id, @RequestBody Photo photo, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> editPhoto(@PathVariable ("id") long id,
+                                       @RequestBody Photo photo,
+                                       @RequestHeader Map<String, String> header){
+
         User authUser = userService.findUser(header.get("username"));
         if(authUser != null && passwordEncoder.matches(header.get("password"), authUser.getPassword())) {
             Photo editedPhoto = photoServiceImpl.getPhotoById(id);
@@ -106,7 +121,9 @@ public class PhotoREST {
     }
 
     @GetMapping("public/photo/download/{id}")
-    public ResponseEntity<?> getImage(@PathVariable("id") long id, @RequestHeader Map<String, String> header){
+    public ResponseEntity<?> getImage(@PathVariable("id") long id,
+                                      @RequestHeader Map<String, String> header){
+
         Photo photo = photoServiceImpl.getPhotoById(id);
         if(photo != null) {
             return ResponseEntity.status(HttpStatus.OK)

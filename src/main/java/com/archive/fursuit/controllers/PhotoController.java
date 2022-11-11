@@ -29,7 +29,9 @@ public class PhotoController {
     private EventServiceImpl eventServiceImpl;
 
     @GetMapping("/admin/photo/move")
-    public String movePhoto(Model model, @RequestParam long eventId, @RequestParam long photoId){
+    public String movePhoto(Model model, @RequestParam long eventId,
+                            @RequestParam long photoId){
+
         Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
         List<Event> events = eventServiceImpl.getAllEvents();
         model.addAttribute("photo", movedPhoto);
@@ -40,8 +42,11 @@ public class PhotoController {
     }
 
     @PostMapping("/admin/photo/move")
-    public ModelAndView movePhoto(@ModelAttribute ("photo") Photo photo, RedirectAttributes redirectAttributes,
-                                  @RequestParam long eventId, @RequestParam long photoId){
+    public ModelAndView movePhoto(@ModelAttribute ("photo") Photo photo,
+                                  RedirectAttributes redirectAttributes,
+                                  @RequestParam long eventId,
+                                  @RequestParam long photoId){
+
         Photo movedPhoto = photoServiceImpl.getPhotoById(photoId);
         movedPhoto.setEvent(photo.getEvent());
         photoServiceImpl.savePhoto(movedPhoto);
@@ -50,7 +55,9 @@ public class PhotoController {
     }
 
     @GetMapping("/admin/photo/upload")
-    public String uploadPhoto(Model model, @RequestParam long id){
+    public String uploadPhoto(Model model,
+                              @RequestParam long id){
+
         Photo photo = new Photo();
         model.addAttribute("photo", photo);
         model.addAttribute("id", id);
@@ -58,9 +65,11 @@ public class PhotoController {
     }
 
     @PostMapping("/admin/photo/upload")
-    public ModelAndView uploadPhoto(@ModelAttribute ("photo") Photo photo, @RequestParam long id,
+    public ModelAndView uploadPhoto(@ModelAttribute ("photo") Photo photo,
+                                    @RequestParam long id,
                                     @RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes){
+
         String msg = photoServiceImpl.createNewPhoto(photo, id, file);
         redirectAttributes.addAttribute("id", id);
         if(msg.equals("success")) {
@@ -73,6 +82,7 @@ public class PhotoController {
 
     @GetMapping("/user/photo/image")
     public ResponseEntity<?> getImage(@RequestParam long id){
+
         Photo photo = photoServiceImpl.getPhotoById(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf(photo.getFileType()))
@@ -81,6 +91,7 @@ public class PhotoController {
 
     @GetMapping("/user/photo/download")
     public ResponseEntity<?> downloadImage(@RequestParam long photoId){
+
         HttpHeaders header = new HttpHeaders();
         Photo photo = photoServiceImpl.getPhotoById(photoId);
         header.add(HttpHeaders.CONTENT_DISPOSITION, photo.getLabel()+photo.getFileType());
