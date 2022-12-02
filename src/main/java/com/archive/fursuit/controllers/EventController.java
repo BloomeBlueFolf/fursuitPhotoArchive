@@ -158,7 +158,7 @@ public class EventController {
     public String renameEvent(@ModelAttribute Event event,
                               @RequestParam long id){
 
-          eventServiceImpl.renameEvent(id, event);
+        eventServiceImpl.renameEvent(id, event);
         logger.info("Event renamed. Redirect to index page.");
         return "redirect:/user?eventrenamed";
     }
